@@ -1,0 +1,1044 @@
+[
+  {
+    "op": "test",
+    "path": "/case.yaml/id",
+    "value": "case"
+  },
+  {
+    "op": "test",
+    "path": "/condition.yaml/id",
+    "value": "condition"
+  },
+  {
+    "op": "test",
+    "path": "/nm_series_file.yaml/id",
+    "value": "nm_series_file"
+  },
+  {
+    "op": "test",
+    "path": "/ct_series_file.yaml/id",
+    "value": "ct_series_file"
+  },
+  {
+    "op": "test",
+    "path": "/pt_series_file.yaml/id",
+    "value": "pt_series_file"
+  },
+  {
+    "op": "test",
+    "path": "/imaging_study.yaml/id",
+    "value": "imaging_study"
+  },
+  {
+    "op": "add",
+    "path": "/condition.yaml/properties/ecog_performance_status",
+    "value": {
+      "description": "ECOG performance status score describing the patient's level of functioning and ability to perform daily activities.",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/surgery.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "surgery",
+      "title": "Surgery",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "medical_history",
+      "program": "*",
+      "project": "*",
+      "description": "Surgery performed before or after radiopharmaceutical therapy (RPT).",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "cases",
+          "backref": "surgeries",
+          "label": "related_to",
+          "target_type": "case",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "cases"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "days_to_surgery": {
+          "description": "The number of days from the index date to the date of surgery, in accordance with HIPAA Safe Harbor de-identification.",
+          "type": "integer"
+        },
+        "primary_tumor_removal": {
+          "description": "Whether the primary tumor has been removed through surgery.",
+          "type": "boolean"
+        },
+        "days_between_surgery_and_rpt": {
+          "description": "Time in days between the surgery event and the start of RPT treatment.",
+          "type": "integer"
+        },
+        "pre_surgery_tumor_volume": {
+          "description": "Tumor volume pre-surgery, in mL, if debulking surgery was performed.",
+          "type": "number"
+        },
+        "post_surgery_tumor_volume": {
+          "description": "Tumor volume post-surgery, in mL, if debulking surgery was performed.",
+          "type": "number"
+        },
+        "debulking_threshold": {
+          "description": "The goal optimal debulking threshold depending on cancer type; typically around 0.7 for neuroendocrine tumors (NETs).",
+          "type": "number"
+        },
+        "cases": {
+          "description": "The submitter_id or id of the case record(s) this surgery is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/other_treatment.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "other_treatment",
+      "title": "Other Treatment",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "medical_history",
+      "program": "*",
+      "project": "*",
+      "description": "General information regarding treatments other than RPT given before or alongside it, including hormone therapy, chemotherapy, somatostatin analog therapy, etc.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "cases",
+          "backref": "other_treatments",
+          "label": "related_to",
+          "target_type": "case",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "cases"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "therapy_type": {
+          "description": "Type of therapy applied before or alongside RPT.",
+          "enum": [
+            "hormone_therapy",
+            "chemotherapy",
+            "immunotherapy",
+            "systemic_radiation_therapy",
+            "liver_directed_therapy",
+            "other"
+          ]
+        },
+        "days_to_therapy_start": {
+          "description": "The number of days from the index date to the start of this therapy, in accordance with HIPAA Safe Harbor de-identification.",
+          "type": "integer"
+        },
+        "days_to_therapy_end": {
+          "description": "The number of days from the index date to the end of this therapy, in accordance with HIPAA Safe Harbor de-identification.",
+          "type": "integer"
+        },
+        "days_between_therapy_and_rpt": {
+          "description": "Time in days between the end of this therapy and the start of RPT.",
+          "type": "integer"
+        },
+        "pre_therapy_tumor_volume": {
+          "description": "Tumor volume before the start of this therapy, in mL.",
+          "type": "number"
+        },
+        "post_therapy_tumor_volume": {
+          "description": "Tumor volume after this therapy, in mL.",
+          "type": "number"
+        },
+        "response_to_therapy": {
+          "description": "Response to this therapy: whether it was completed or stopped, and the reasoning.",
+          "type": "string"
+        },
+        "response_criteria": {
+          "description": "Criteria used to assess response to this therapy.",
+          "type": "string"
+        },
+        "cases": {
+          "description": "The submitter_id or id of the case record(s) this other_treatment is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/tumor.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "tumor",
+      "title": "Tumor",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "Tumor information prior to RPT treatment.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "cases",
+          "backref": "tumors",
+          "label": "related_to",
+          "target_type": "case",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "cases"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "tumor_site": {
+          "description": "Primary tumor location.",
+          "type": "string"
+        },
+        "ajcc_stage": {
+          "description": "Staging of cancer progression according to the AJCC system.",
+          "type": "string"
+        },
+        "tumor_grade": {
+          "description": "Categorization of the tumor by level of cell differentiation, determined through analysis of tissue samples.",
+          "type": "string"
+        },
+        "extra_abdominal_mets": {
+          "description": "Whether the tumor has metastasized outside the abdomen.",
+          "type": "boolean"
+        },
+        "ki_67": {
+          "description": "Ki-67 marker expression (%), strongly associated with tumor cell proliferation and growth.",
+          "type": "number"
+        },
+        "cases": {
+          "description": "The submitter_id or id of the case record(s) this tumor is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/treatment_course.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "treatment_course",
+      "title": "Treatment Course",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "An overall course of radiopharmaceutical therapy (RPT) treatments.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "cases",
+          "backref": "treatment_courses",
+          "label": "related_to",
+          "target_type": "case",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "cases"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "radiopharmaceutical": {
+          "description": "Name of the radiopharmaceutical administered, e.g. [177Lu]Lu-DOTATATE.",
+          "type": "string"
+        },
+        "radiation_type": {
+          "description": "Type of ionizing radiation delivered by the radiopharmaceutical.",
+          "enum": [
+            "alpha",
+            "beta",
+            "auger",
+            "other"
+          ]
+        },
+        "number_of_cycles": {
+          "description": "The number of treatment cycles in this course.",
+          "type": "integer"
+        },
+        "days_to_treatment_start": {
+          "description": "The number of days from the index date to the start of this treatment course, in accordance with HIPAA Safe Harbor de-identification.",
+          "type": "integer"
+        },
+        "cases": {
+          "description": "The submitter_id or id of the case record(s) this treatment_course is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/treatment_cycle.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "treatment_cycle",
+      "title": "Treatment Cycle",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "A single cycle of RPT treatment, including the activity administered.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "treatment_courses",
+          "backref": "treatment_cycles",
+          "label": "member_of",
+          "target_type": "treatment_course",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "cycle_number",
+        "treatment_courses"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "cycle_number": {
+          "description": "The sequential number of this treatment cycle within the treatment course.",
+          "type": "integer"
+        },
+        "administered_activity": {
+          "description": "Net activity injected during this treatment cycle, in MBq.",
+          "type": "number"
+        },
+        "therapeutic_target": {
+          "description": "Intended molecular or anatomical therapeutic target, e.g. SSTR2.",
+          "type": "string"
+        },
+        "treatment_courses": {
+          "description": "The submitter_id or id of the treatment_course record(s) this treatment_cycle is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/laboratory_test.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "laboratory_test",
+      "title": "Laboratory Test",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "A laboratory test result linked to an RPT treatment cycle, e.g. renal function and blood work.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "treatment_cycles",
+          "backref": "laboratory_tests",
+          "label": "related_to",
+          "target_type": "treatment_cycle",
+          "multiplicity": "many_to_one",
+          "required": true
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "treatment_cycles"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "loinc_code": {
+          "description": "LOINC code identifying the laboratory test performed.",
+          "type": "string"
+        },
+        "lab_value": {
+          "description": "Numeric result of the laboratory test.",
+          "type": "number"
+        },
+        "lab_unit": {
+          "description": "Unit of measurement for the laboratory test result.",
+          "type": "string"
+        },
+        "days_from_cycle_start": {
+          "description": "Days from the start of the treatment cycle at which the sample was collected.",
+          "type": "integer"
+        },
+        "treatment_cycles": {
+          "description": "The submitter_id or id of the treatment_cycle record(s) this laboratory_test is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/absorbed_dose.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "absorbed_dose",
+      "title": "Absorbed Dose",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "Absorbed dose estimate for a target organ or lesion within an RPT treatment cycle.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "name": "treatment_cycles",
+          "backref": "absorbed_doses",
+          "label": "related_to",
+          "target_type": "treatment_cycle",
+          "multiplicity": "many_to_one",
+          "required": true
+        },
+        {
+          "name": "imaging_studies",
+          "backref": "absorbed_doses",
+          "label": "related_to",
+          "target_type": "imaging_study",
+          "multiplicity": "many_to_one",
+          "required": false
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids",
+        "treatment_cycles"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "dose_target": {
+          "description": "Anatomical target for which absorbed dose was calculated.",
+          "enum": [
+            "liver",
+            "kidneys",
+            "marrow",
+            "salivary_glands",
+            "lungs",
+            "spleen",
+            "rest_of_body",
+            "lesion"
+          ]
+        },
+        "lesion_id": {
+          "description": "Lesion ID used to track lesion identity and lifecycle across treatment cycles.",
+          "type": "integer"
+        },
+        "mean_absorbed_dose": {
+          "description": "Mean absorbed dose delivered to the target, in Gy.",
+          "type": "number"
+        },
+        "sd_absorbed_dose": {
+          "description": "Standard deviation of the absorbed dose, in Gy.",
+          "type": "number"
+        },
+        "d50": {
+          "description": "Minimum absorbed dose received by the hottest 50% of the target volume, in Gy.",
+          "type": "number"
+        },
+        "d90": {
+          "description": "Minimum absorbed dose received by the hottest 90% of the target volume, in Gy.",
+          "type": "number"
+        },
+        "lesion_volume": {
+          "description": "Lesion volume in mL, tracked across treatment cycles to monitor response.",
+          "type": "number"
+        },
+        "cycle_number": {
+          "description": "Treatment cycle number to which this dose estimate corresponds.",
+          "type": "integer"
+        },
+        "dosimetry_method": {
+          "description": "Computational method used to derive the absorbed dose estimate.",
+          "enum": [
+            "MIRD",
+            "voxel_dosimetry",
+            "Monte_Carlo",
+            "other"
+          ]
+        },
+        "dosimetry_software": {
+          "description": "Software used to perform dosimetry calculations, e.g. OLINDA, MIM, Michigan Dosimetry Code.",
+          "type": "string"
+        },
+        "time_activity_curve_fit": {
+          "description": "Functional form used to fit the time-activity curve, e.g. monoexponential.",
+          "type": "string"
+        },
+        "treatment_cycles": {
+          "description": "The submitter_id or id of the treatment_cycle record(s) this absorbed_dose is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        },
+        "imaging_studies": {
+          "description": "The submitter_id or id of the imaging_study record(s) this absorbed_dose is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/clinical_outcome.yaml",
+    "value": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "clinical_outcome",
+      "title": "Clinical Outcome",
+      "type": "object",
+      "nodeTerms": null,
+      "namespace": "https://data.midrc.org",
+      "category": "clinical",
+      "program": "*",
+      "project": "*",
+      "description": "Clinical outcome data linked to an RPT treatment cycle and/or dosimetry results, capturing treatment response and toxicity.",
+      "additionalProperties": false,
+      "submittable": true,
+      "validators": null,
+      "systemProperties": [
+        "id",
+        "project_id",
+        "state",
+        "created_datetime",
+        "updated_datetime"
+      ],
+      "links": [
+        {
+          "exclusive": false,
+          "required": true,
+          "subgroup": [
+            {
+              "name": "treatment_cycles",
+              "backref": "clinical_outcomes",
+              "label": "related_to",
+              "target_type": "treatment_cycle",
+              "multiplicity": "many_to_one",
+              "required": false
+            },
+            {
+              "name": "absorbed_doses",
+              "backref": "clinical_outcomes",
+              "label": "related_to",
+              "target_type": "absorbed_dose",
+              "multiplicity": "many_to_one",
+              "required": false
+            }
+          ]
+        }
+      ],
+      "required": [
+        "submitter_id",
+        "type",
+        "case_ids"
+      ],
+      "uniqueKeys": [
+        [
+          "id"
+        ],
+        [
+          "project_id",
+          "submitter_id"
+        ]
+      ],
+      "properties": {
+        "$ref": "_definitions.yaml#/ubiquitous_properties",
+        "treatment_response": {
+          "description": "Treatment response assessment per RECIST or PERCIST criteria.",
+          "enum": [
+            "complete_response",
+            "partial_response",
+            "stable_disease",
+            "progressive_disease",
+            "not_evaluable"
+          ]
+        },
+        "progression_free_survival": {
+          "description": "Length of time in months during and after treatment that the patient lives without disease progression.",
+          "type": "number"
+        },
+        "overall_survival": {
+          "description": "Length of time in months from the start of treatment until death from any cause.",
+          "type": "number"
+        },
+        "toxicity_grade": {
+          "description": "Toxicity grade per CTCAE criteria.",
+          "enum": [
+            "Grade_1",
+            "Grade_2",
+            "Grade_3",
+            "Grade_4",
+            "Grade_5"
+          ]
+        },
+        "toxicity_organ": {
+          "description": "Organ in which toxicity was observed.",
+          "enum": [
+            "kidneys",
+            "marrow",
+            "liver",
+            "salivary_glands",
+            "other"
+          ]
+        },
+        "days_to_progression": {
+          "description": "Number of days from treatment start to documented disease progression.",
+          "type": "integer"
+        },
+        "treatment_cycles": {
+          "description": "The submitter_id or id of the treatment_cycle record(s) this clinical_outcome is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        },
+        "absorbed_doses": {
+          "description": "The submitter_id or id of the absorbed_dose record(s) this clinical_outcome is related to, i.e., a link to a record in the parent node.",
+          "$ref": "_definitions.yaml#/to_one"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/links/-",
+    "value": {
+      "name": "treatment_cycles",
+      "backref": "imaging_studies",
+      "label": "related_to",
+      "target_type": "treatment_cycle",
+      "multiplicity": "many_to_one",
+      "required": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/properties/treatment_cycles",
+    "value": {
+      "description": "The submitter_id or id of the RPT treatment cycle during which this imaging study was acquired, i.e., a link to a record in the parent node.",
+      "$ref": "_definitions.yaml#/to_one"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/properties/suv_max",
+    "value": {
+      "description": "Maximum standardized uptake value (SUVmax): the highest radiotracer concentration in the region of tissue assessed.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/properties/suv_mean",
+    "value": {
+      "description": "Mean standardized uptake value (SUVmean): the average radiotracer concentration within the region assessed.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/properties/tumor_volume",
+    "value": {
+      "description": "Tumor volume measured on this imaging study, in mL.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/imaging_study.yaml/properties/days_from_cycle_start",
+    "value": {
+      "description": "Days from the start of the treatment cycle at which this imaging study was acquired, to support linking multi-timepoint series.",
+      "type": "integer"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/software_version",
+    "value": {
+      "term": {
+        "$ref": "_terms.yaml#/software_version"
+      },
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/injected_activity",
+    "value": {
+      "description": "Activity of the radiopharmaceutical injected for this acquisition, in MBq.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/hours_from_injection_to_imaging",
+    "value": {
+      "description": "Time in hours from radiopharmaceutical injection to the start of image acquisition. Replaces absolute injection and imaging times, in accordance with HIPAA Safe Harbor de-identification.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/image_acquisition_params",
+    "value": {
+      "description": "Parameters used for image acquisition.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/image_reconstruction_params",
+    "value": {
+      "description": "Parameters used for image reconstruction.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ct_series_file.yaml/properties/software_version",
+    "value": {
+      "term": {
+        "$ref": "_terms.yaml#/software_version"
+      },
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ct_series_file.yaml/properties/injected_activity",
+    "value": {
+      "description": "Activity of the radiopharmaceutical injected for this acquisition, in MBq.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ct_series_file.yaml/properties/hours_from_injection_to_imaging",
+    "value": {
+      "description": "Time in hours from radiopharmaceutical injection to the start of image acquisition. Replaces absolute injection and imaging times, in accordance with HIPAA Safe Harbor de-identification.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ct_series_file.yaml/properties/image_acquisition_params",
+    "value": {
+      "description": "Parameters used for image acquisition.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ct_series_file.yaml/properties/image_reconstruction_params",
+    "value": {
+      "description": "Parameters used for image reconstruction.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/software_version",
+    "value": {
+      "term": {
+        "$ref": "_terms.yaml#/software_version"
+      },
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/injected_activity",
+    "value": {
+      "description": "Activity of the radiopharmaceutical injected for this acquisition, in MBq.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/hours_from_injection_to_imaging",
+    "value": {
+      "description": "Time in hours from radiopharmaceutical injection to the start of image acquisition. Replaces absolute injection and imaging times, in accordance with HIPAA Safe Harbor de-identification.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/image_acquisition_params",
+    "value": {
+      "description": "Parameters used for image acquisition.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/image_reconstruction_params",
+    "value": {
+      "description": "Parameters used for image reconstruction.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/attenuation_correction",
+    "value": {
+      "description": "(0054,1101) Attenuation Correction Method. The attenuation correction method applied to the PET data.",
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/sstr2_suv_max",
+    "value": {
+      "description": "Maximum standardized uptake value (SUVmax) in SSTR2-positive disease on somatostatin receptor PET.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/pt_series_file.yaml/properties/sstr2_suv_mean",
+    "value": {
+      "description": "Mean standardized uptake value (SUVmean) in SSTR2-positive disease on somatostatin receptor PET.",
+      "type": "number"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/nm_acquisition_type",
+    "value": {
+      "description": "Whether the nuclear medicine series is a tomographic (SPECT) or planar acquisition; both use DICOM modality NM.",
+      "enum": [
+        "SPECT",
+        "Planar"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/collimator",
+    "value": {
+      "description": "(0018,1180) Collimator/grid Name. The type of collimator used for the acquisition.",
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/energy_window",
+    "value": {
+      "description": "(0054,0012) Energy Window Information Sequence. The energy window settings used for the acquisition.",
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/attenuation_correction",
+    "value": {
+      "description": "The attenuation correction method applied to the SPECT data, if any.",
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/image_units",
+    "value": {
+      "description": "(0054,1001) Units. The units of the pixel values in the image, e.g. CNTS or BQML.",
+      "type": "string"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/nm_series_file.yaml/properties/calibration_factor",
+    "value": {
+      "description": "Calibration factor used to convert image counts to activity, e.g. in counts per second per MBq.",
+      "type": "number"
+    }
+  }
+]
