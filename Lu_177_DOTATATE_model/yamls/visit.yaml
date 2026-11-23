@@ -1,0 +1,60 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: visit
+title: visit
+type: object
+namespace: http://localhost/
+category: administrative
+program: '*'
+project: '*'
+description: Information about a specific visit for a specific case or patient.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- submitter_id
+- type
+links:
+- name: cases
+  backref: visits
+  label: part_of
+  target_type: case
+  multiplicity: many_to_one
+  required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  days_to_hospital_admission:
+    type: integer
+    description: The number of days between the case's index date and the date of
+      the patient's hospital admission.
+  days_to_hospital_discharge:
+    type: integer
+    description: The number of days between the case's index date and the date of
+      the patient's hospital discharge.
+  days_to_icu_admission:
+    type: integer
+    description: The number of days between the case's index date and the date of
+      the patient's ICU admission.
+  days_to_icu_discharge:
+    type: integer
+    description: The number of days between the case's index date and the date of
+      the patient's ICU discharge.
+  discharge_type:
+    type: string
+    description: The status or destination of the patient at the time of discharge.
+  cases:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

@@ -1,0 +1,301 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "case"
+title: Case
+type: object
+nodeTerms: null
+namespace: https://data.midrc.org
+category: administrative
+program: '*'
+project: '*'
+description: The collection of all data related to a specific patient or case in the context of a specific dataset or experiment.
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: datasets
+    backref: cases
+    label: member_of
+    target_type: dataset
+    multiplicity: many_to_many
+    required: true
+
+required:
+  - submitter_id
+  - type
+  - datasets
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+properties:
+
+  $ref: "_definitions.yaml#/ubiquitous_properties"
+
+  age_at_index:
+    term:
+      $ref: "_terms.yaml#/age_at_index"
+    type: number
+    maximum: 89
+    minimum: 0
+
+  age_at_index_gt89:
+    description: Indicates whether the subject's age at the time of the study was greater than 89 years. This property is included to ensure personal privacy protection in accordance with the HIPAA Safe Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    enum:
+      - "Yes"
+      - "No"
+
+  country_of_residence:
+    term:
+      $ref: "_terms.yaml#/country_of_residence"
+    type: string
+
+  covid19_positive:
+    term:
+      $ref: "_terms.yaml#/covid19_positive"
+    enum:
+      - "Yes"
+      - "No"
+      - "Indeterminate"
+      - "Not Reported"
+
+  days_to_death:
+    description: The number of days from the index date to the date of death.
+    type: integer
+
+  days_to_last_follow_up:
+    description: The number of days from the index date to the date of last follow-up.
+    type: integer
+
+  ethnicity:
+    term:
+      $ref: "_terms.yaml#/ethnicity"
+    enum:
+      - Hispanic or Latino
+      - Not Hispanic or Latino
+      - Not Reported
+
+  gen3_linked_subjects_available:
+    description: Indicates whether there is data available for the subject in other data resources.
+    type: boolean
+
+  icu_indicator:
+    term:
+      $ref: "_terms.yaml#/icu_indicator"
+    type: boolean
+
+  index_event:
+    description: The event used as the anchor or start date for all temporal data elements. This acts as day 0 on a timeline of events relating to the patient. This property is included to ensure personal privacy protection in accordance with the HIPAA Safe Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    enum:
+      - COVID-19 Test
+      - Long COVID Diagnosis
+      - Study Enrollment
+      - First Imaging Study
+
+  indoor_biomass_smoke_exposure:
+    description: An indicator confirming exposure to indoor biomass smoke (wood, charcoal).
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+
+  linked_external_data:
+    description: A list of all external data resources that are confirmed to have data for the case.
+    type: array
+    items:
+      type: string
+
+  long_covid_diagnosis:
+    term:
+      $ref: "_terms.yaml#/long_covid_diagnosis"
+    enum:
+      - Positive
+      - Not Reported
+
+  mortality_status:
+    description: Status of participant/subject as alive or dead.
+    enum:
+      - Alive
+      - Deceased
+      - Not Reported
+
+  number_of_pack_years:
+    description: If participant is a former or current cigarette smoker, documents the number of pack-years of smoking [(average number smoked daily)/20] x (number of years smoked) = pack-years].
+    type: number
+
+  occupational_exposure:
+    description: An indicator confirming occupational risk exposure.
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+
+  occupational_exposure_type:
+    description: A description of the type of occupational exposure.
+    type: string
+
+  patient_category:
+    description: A category describing whether the patient was an inpatient (residing in the hospital where they were being treated), an outpatient (visiting a healthcare facility for diagnosis or treatment but admitted for an overnight stay), or a patient visiting the Intensive Care Unit (ICU).
+    enum:
+      - Inpatient
+      - Outpatient
+      - ICU
+      - Not Reported
+
+  pulmonary_fibrosis_family_history:
+    description: An indicator confirming a family history of pulmonary fibrosis.
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+
+  smoking_history:
+    description: Qualitative categorization of the participant's/subject's smoking history.
+    enum:
+      - Never
+      - Former
+      - Current
+      - Not Reported
+
+  race:
+    term:
+      $ref: "_terms.yaml#/race"
+    enum:
+      - American Indian or Alaska Native
+      - Asian
+      - Black or African American
+      - Native Hawaiian or other Pacific Islander
+      - Other
+      - White
+      - Not Reported
+
+  race_ethnicity:
+    description: Race and/or ethnicity minimum required category as defined in the Revisions to OMB's Statistical Policy Directive No. 15 - Standards for Maintaining, Collecting, and Presenting Federal Data on Race and Ethnicity. Only 7 race minimum categories are enumerated, as determined by SPD 15; this question is presented as 'select all that apply', so single individuals may select multiple categories. There may be additional detailed categories provided in the property 'race_ethnicity_detail'; detailed categories must be subcategories of one of these minimum categories. In the case where race is 'Other', there may be additional information in the property 'race_ethnicity_write_in'.
+    type: array
+    items:
+      enum:
+        - Other
+        - Not Reported
+        - American Indian or Alaska Native
+        - Asian
+        - Black or African American
+        - Hispanic or Latino
+        - Middle Eastern or North African
+        - Native Hawaiian or Pacific Islander
+        - White
+
+  race_ethnicity_detail:
+    description: Race and/or ethnicity detailed category as defined in the Revisions to OMB's Statistical Policy Directive No. 15 - Standards for Maintaining, Collecting, and Presenting Federal Data on Race and Ethnicity; this question is presented as 'select all that apply', so single individuals may select multiple categories. Only 6 to 9 detailed race categories are enumerated, as determined by SPD 15; in the case where the detailed category is 'Another group', there may be additional information provided in the property 'race_ethnicity_write_in'.
+    type: array
+    items:
+      enum:
+        - Another group
+        - Not Reported
+        - Navajo Nation
+        - Blackfeet Tribe of the Blackfeet Indian Reservation of Montana
+        - Native Village of Barrow Inupiat Traditional Government
+        - Nome Eskimo Community
+        - Aztec
+        - Maya
+        - Chinese
+        - Asian Indian
+        - Filipino
+        - Japanese
+        - Korean
+        - Vietnamese
+        - Pakistani
+        - Hmong
+        - Afghan
+        - African American
+        - Jamaican
+        - Haitian
+        - Nigerian
+        - Ethiopian
+        - Somali
+        - Trinidadian and Tobagonian
+        - Ghanaian
+        - Congolese
+        - Mexican
+        - Puerto Rican
+        - Cuban
+        - Salvadoran
+        - Dominican
+        - Guatemalan
+        - Colombian
+        - Honduran
+        - Spaniard
+        - Lebanese
+        - Iranian
+        - Egyptian
+        - Syrian
+        - Iraqi
+        - Israeli
+        - Moroccan
+        - Yemeni
+        - Kurdish
+        - Native Hawaiian
+        - Samoan
+        - Chamorro
+        - Tongan
+        - Fijian
+        - Marshallese
+        - Chuukese
+        - Palauan
+        - Tahitian
+        - English
+        - German
+        - Irish
+        - Italian
+        - Polish
+        - Scottish
+        - French
+        - Swedish
+        - Norwegian
+
+  race_ethnicity_write_in:
+    description: Free-text details related to race and/or ethnicity as defined in the Revisions to OMB's Statistical Policy Directive No. 15 - Standards for Maintaining, Collecting, and Presenting Federal Data on Race and Ethnicity. This property is only used if there is additional race information that does not match any of the minimum or detailed race categories.
+    type: string
+
+  sex:
+    term:
+      $ref: "_terms.yaml#/sex"
+    enum:
+      - Female
+      - Male
+      - Not Reported
+
+  site_id:
+    term:
+      $ref: "_terms.yaml#/site_id"
+    type: string
+
+  token_record_id:
+    description: An ID used to link a de-identified case in MIDRC to the same case in an external data resource.
+    type: string
+
+  treatment_info:
+    term:
+      $ref: "_terms.yaml#/treatment_info"
+    type: boolean
+
+  ventilator_indicator:
+    term:
+      $ref: "_terms.yaml#/ventilator_indicator"
+    type: boolean
+
+  zip:
+    description: The three-digit United States zip code of residence for any population greater than 20,000. For zip codes where the three digit number represents a population less than 20,000 "000" will be provided.
+    type: string
+
+  datasets:
+    description: The submitter_id or id of the dataset this case belongs to, i.e., a link to a record in the parent node.
+    $ref: "_definitions.yaml#/to_many"

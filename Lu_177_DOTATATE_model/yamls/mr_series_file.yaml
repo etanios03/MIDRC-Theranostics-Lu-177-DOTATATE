@@ -1,0 +1,218 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: mr_series_file
+title: mr_series_file
+type: object
+namespace: http://localhost/
+category: imaging
+program: '*'
+project: '*'
+description: A package of image files and metadata related to an MR imaging series
+  to which one or more MR (magnetic resonance) images belong.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- data_category
+- data_format
+- data_type
+- submitter_id
+- type
+links:
+- exclusive: false
+  required: true
+  subgroup:
+  - name: core_metadata_collections
+    backref: mr_series_files
+    label: part_of
+    target_type: core_metadata_collection
+    multiplicity: many_to_one
+    required: true
+  - name: imaging_studys
+    backref: mr_series_files
+    label: part_of
+    target_type: imaging_study
+    multiplicity: many_to_one
+    required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  contrast_bolus_agent:
+    type: array
+    items:
+      type: string
+    description: (0018, 0010) Contrast/Bolus Agent.
+  image_data_modification_name:
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software
+      tools, processes) used to modify the study series. More information can be found
+      at midrc.org.
+  image_data_modification_method:
+    description: A categorical description of the type of image modification performed
+      on the study series.
+    enum:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+  image_data_modified:
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel
+      data has been performed on the study series.
+  image_type:
+    type: array
+    items:
+      type: string
+    description: (0008, 0008) Image Type.
+  imager_pixel_spacing:
+    type: array
+    items:
+      type: string
+    description: (0018, 1164) Imager Pixel Spacing.
+  lossy_image_compression:
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed
+      with a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is
+      set to "01". Subsequently, if the image is decompressed and transferred in uncompressed
+      format, this Attribute value remains "01".
+    enum:
+    - '00'
+    - '01'
+  magnetic_field_strength:
+    type: array
+    items:
+      type: string
+    description: (0018,0087) Magnetic Field Strength.
+  manufacturer:
+    type: string
+    description: (0008, 0070) Manufacturer.
+  manufacturer_model_name:
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+  modality:
+    type: string
+    description: (0008, 0060) Modality.
+  mr_acquisition_type:
+    type: array
+    items:
+      type: string
+    description: (0018, 0023) MR Acquisition Type.
+  pixel_spacing:
+    type: array
+    items:
+      type: string
+    description: (0028, 0030) Pixel Spacing.
+  scanning_sequence:
+    type: array
+    items:
+      type: string
+    description: (0018, 0020) Scanning Sequence.
+  sequence_name:
+    type: array
+    items:
+      type: string
+    description: (0018, 0024) Sequence Name.
+  series_description:
+    type: string
+    description: (0008, 103e) Series Description.
+  series_uid:
+    type: string
+    description: (0020, 000e) Series Instance UID.
+  slice_thickness:
+    type: array
+    items:
+      type: string
+    description: (0018, 0050) Slice Thickness.
+  spacing_between_slices:
+    type: array
+    items:
+      type: string
+    description: (0018, 0088) Spacing Between Slices.
+  data_category:
+    description: Broad categorization of the contents of the data file.
+    enum:
+    - MR
+  data_format:
+    description: Format of the data files.
+    enum:
+    - DCM
+    - nii.gz
+  data_type:
+    description: Specific content type of the data file.
+    enum:
+    - DICOM
+    - NIfTI
+  angio_flag:
+    type: array
+    items:
+      type: string
+    description: (0018, 0025) Angio Flag.
+  diffusion_b_value:
+    type: array
+    items:
+      type: string
+    description: (0018, 9087) Diffusion b-value.
+  diffusion_gradient_orientation:
+    type: string
+    description: (0018, 9089) Diffusion Gradient Orientation.
+  echo_number:
+    type: array
+    items:
+      type: string
+    description: (0018, 0086) Echo Number.
+  echo_time:
+    type: array
+    items:
+      type: string
+    description: (0018, 0081) Echo Time.
+  echo_train_length:
+    type: array
+    items:
+      type: string
+    description: (0018, 0091) Echo Train Length.
+  imaged_nucleus:
+    type: array
+    items:
+      type: string
+    description: (0018, 0085) Imaged Nucleus.
+  number_of_instances:
+    type: integer
+    description: The number of instances included in this series.
+  number_of_temporal_positions:
+    type: array
+    items:
+      type: string
+    description: (0018, 0023) MR Acquisition Type.
+  repetition_time:
+    type: array
+    items:
+      type: string
+    description: (0018, 0080) Repetition Time.
+  scan_options:
+    type: array
+    items:
+      type: string
+    description: (0018, 0022) Scan Options.
+  sequence_variant:
+    type: array
+    items:
+      type: string
+    description: (0018, 0021) Sequence Variant.
+  software_version:
+    type: string
+    description: (0018, 1020) Software Version(s).
+  core_metadata_collections:
+    $ref: _definitions.yaml#/to_one
+  imaging_studys:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

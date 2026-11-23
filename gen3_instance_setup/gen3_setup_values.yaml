@@ -1,0 +1,244 @@
+global:
+  dictionaryUrl: https://raw.githubusercontent.com/etanios03/MIDRC-Theranostics-Lu-177-DOTATATE/refs/heads/main/Lu_177_DOTATATE_model/lu_177_dotatate_midrc_bundled.json
+  hostname: localhost
+  dev: true
+  postgres:
+    dbCreate: true
+    master:
+      username: postgres
+      password: postgres
+      port: "5432"
+  tls:
+    enabled: true
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEfTCCAuWgAwIBAgIRAPt6WJI2acsTnh0CsUI9sq0wDQYJKoZIhvcNAQELBQAw
+      gZkxHjAcBgNVBAoTFW1rY2VydCBkZXZlbG9wbWVudCBDQTE3MDUGA1UECwwuZXZl
+      dGFuaW9zQEZhZHlzLU1hY0Jvb2stUHJvLmxvY2FsIChFdmUgVGFuaW9zKTE+MDwG
+      A1UEAww1bWtjZXJ0IGV2ZXRhbmlvc0BGYWR5cy1NYWNCb29rLVByby5sb2NhbCAo
+      RXZlIFRhbmlvcykwHhcNMjYwODI0MjAwMDU3WhcNMjgxMTI0MjEwMDU3WjBiMScw
+      JQYDVQQKEx5ta2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlmaWNhdGUxNzA1BgNVBAsM
+      LmV2ZXRhbmlvc0BGYWR5cy1NYWNCb29rLVByby5sb2NhbCAoRXZlIFRhbmlvcykw
+      ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCs54XsevgTF9gYe0SMSDg0
+      v0UUcPkcxTcdZFrnmt3iWXeFxMoTLK5IQ8H2WjBkHE3WRG+babMxc3fJ84ogbbBh
+      ZAevJOvLCtL0kAkalo+6zvjrzkOsaa2EvvOuYC2/sgp+Y3dI795vrhQ3W/xE+lzV
+      dPw2PnpTqeFZ9WvgOpXmmDB765HEo7a/90d4ZWJ9JQ47ge2oxbP2dXt+K1++/1t4
+      Dtdx5tHrVuwX30FffGzy7PbYCMoJncl+mnOToXNFo4jW2jclDektAWxu6URTcc/j
+      OV50CJdhiuwBjcswRC3iEjJ9fcoVvtZcqi6VYz7GQkjkuvmqe/IWmEK+EUrJhgb7
+      AgMBAAGjdjB0MA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAf
+      BgNVHSMEGDAWgBTxvj/bktAfnblajxUsEbQ+tKIxnDAsBgNVHREEJTAjgglsb2Nh
+      bGhvc3SHBH8AAAGHEAAAAAAAAAAAAAAAAAAAAAEwDQYJKoZIhvcNAQELBQADggGB
+      AB+MABrIwcsbAXVx/ELX5O6VfH8SX4f1dKWY4QFitSiAZcGigIr3htSZATaOZF79
+      udAhOYG6djn3Vs+5zCKTum9WQTU2QAfV1obzs2tLQoO33mny2xzdvHRchg+tTTG6
+      NWOPwDBYByLAKwTyBy2j6TIWxvAhl4JEML9jKGrb4/6+agC/UiEghqvYmeG3JJjJ
+      r+wZ0nw9OeBGvoBW2Bf66Yhr6XfcR9RIsPR2q2cti4Y5ThlhRAr7Auy/7tNTBNYt
+      By0yD6phtHJZ1Y7BRtNhAVXWWMhpvLMwny5yfyy+68uXBUFU2f6S0zyOsg2zUHXR
+      NdUQbYhGbD3CEN07cfjgDrO9UgEjX2Uu+pOgDXk8JIC+Dyq87x3xjFXCrq9Unjqk
+      1Uf/AykDtJEfXVdYjg/ErQS93xBaqKW0p3eVTVNCX4XSmxdhjzlbH16DFr4A54tO
+      IVuX4fcG/ilhuEDlUer/nI7gfH3ty8wFB98QP3W2FxeVgau/MprL04ZjgQJTOkqN
+      jQ==
+      -----END CERTIFICATE-----
+
+fence:
+  enabled: true
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits: 
+    cpu: "200m"
+    memory: "256Mi"
+  FENCE_CONFIG:
+    MOCK_AUTH: true
+    PUBLIC_URL: "https://localhost"
+    ENABLED_IDENTITY_PROVIDERS:
+      - mock
+    AWS_CREDENTIALS:
+      'CRED1':
+        aws_access_key_id: 'minioadmin'
+        aws_secret_access_key: 'minioadmin123'
+    S3_BUCKETS:
+      dicom-bucket:
+        cred: 'CRED1'
+        endpoint_url: 'http://minio.gen3.svc.cluster.local:9000'
+    DATA_UPLOAD_BUCKET: 'dicom-bucket'
+  usersync:
+    usersync: true
+    userYamlS3Path: none
+  USER_YAML: |
+    authz:
+      resources:
+        - name: services
+          subresources:
+            - name: sheepdog
+              subresources:
+                - name: submission
+                  subresources:
+                    - name: program
+                    - name: project
+        - name: programs
+          subresources:
+            - name: program1
+              subresources:
+                - name: projects
+                  subresources:
+                    - name: project1
+
+      roles:
+        - id: sheepdog_admin
+          description: sheepdog admin role for program/project crud
+          permissions:
+            - id: sheepdog_admin_action
+              action:
+                service: sheepdog
+                method: '*'
+        - id: reader
+          permissions:
+            - id: reader
+              action:
+                method: read
+                service: '*'
+        - id: storage_reader
+          permissions:
+            - id: storage_reader
+              action:
+                method: read-storage
+                service: '*'
+        - id: creator
+          permissions:
+            - id: creator
+              action:
+                method: create
+                service: '*'
+        - id: updater
+          permissions:
+            - id: updater
+              action:
+                method: update
+                service: '*'
+        - id: storage_writer
+          permissions:
+            - id: storage_writer
+              action:
+                method: write-storage
+                service: '*'
+
+      policies:
+        - id: services.sheepdog-admin
+          description: CRUD access to programs and projects
+          role_ids:
+            - sheepdog_admin
+          resource_paths:
+            - /services/sheepdog/submission/program
+            - /services/sheepdog/submission/project
+        - id: program1_reader
+          description: Full read/write access to program1 and its data
+          role_ids:
+            - reader
+            - storage_reader
+            - creator
+            - updater
+            - storage_writer
+          resource_paths:
+            - /programs/program1
+
+    users:
+      test:
+        email: test@example.com
+        display_name: mock_user
+        admin: true
+        policies:
+          - services.sheepdog-admin
+          - program1_reader
+      
+
+
+sheepdog:
+  enabled: true
+  resources:
+    requests:
+      memory: "1Gi"
+    limits: 
+      memory: "4Gi"
+
+indexd:
+  enabled: true
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+
+peregrine:
+  enabled: true
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "4Gi"
+
+revproxy:
+  enabled: true
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+hatchery:
+  enabled: false
+
+portal:
+  enabled: true
+  resources: 
+    requests:
+      cpu: "1000m"      # Higher CPU so webpack compiles faster
+      memory: "2Gi"   # Minimum memory needed for the portal build engine
+    limits:
+      cpu: "2000m"     # Allows up to 1 full CPU core during spikes
+      memory: "6Gi" 
+  gitops:
+    json: |
+      {
+        "graphql": {
+          "boardCounts": [
+            { "graphql": "_PatientInformation_count", "name": "Patient", "plural": "Patients" },
+            { "graphql": "_TumorInformation_count", "name": "Tumor", "plural": "Tumors" },
+            { "graphql": "_Imaging_count", "name": "Imaging Study", "plural": "Imaging Studies" }
+          ],
+          "chartCounts": [
+            { "graphql": "_PatientInformation_count", "name": "Patient" },
+            { "graphql": "_TumorInformation_count", "name": "Tumor" },
+            { "graphql": "_Imaging_count", "name": "Imaging Study" }
+          ],
+          "projectDetails": "boardCounts"
+        },
+        "components": {
+          "appName": "MIDRC Theranostics Prototype"
+        }
+      }
+
+
+guppy:
+  enabled: false
+elasticsearch:
+  enabled: false
+wts:
+  enabled: false
+manifestservice:
+  enabled: false
+arborist:
+  enabled: true
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+audit:
+  enabled: false

@@ -1,0 +1,75 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: condition
+title: condition
+type: object
+namespace: http://localhost/
+category: medical_history
+program: '*'
+project: '*'
+description: Information related to the condition(s) of a case within the context
+  of a particular study (e.g., a medical diagnoses, comorbidities). This includes
+  a snapshot of the case's status with respect to certain diseases, disorders, symptoms,
+  injuries, or illnesses within the context of the study.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- submitter_id
+- type
+links:
+- name: cases
+  backref: conditions
+  label: part_of
+  target_type: case
+  multiplicity: many_to_one
+  required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  condition_code:
+    type: string
+    description: The code for a specific condition, assigned by the code system.
+  condition_code_system:
+    type: string
+    description: The system that assigned the code for a specific condition.
+  condition_name:
+    type: string
+    description: The name of the condition the patient has experienced.
+  days_to_condition_end:
+    type: integer
+    description: The number of days from the index date to the date the subject no
+      longer experienced the condition. This property is included to ensure personal
+      privacy protection in accordance with the HIPAA Safe Harbor Method. More information
+      can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+  days_to_condition_start:
+    type: integer
+    description: The number of days from the index date to the date the subject was
+      diagnosed with or began experiencing the condition. This property is included
+      to ensure personal privacy protection in accordance with the HIPAA Safe Harbor
+      Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+  performance_status_ECOG:
+    description: ECOG performance status score describing patient's level of functioning
+      and ability to perform daily activities
+    enum:
+    - '0'
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+  cases:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

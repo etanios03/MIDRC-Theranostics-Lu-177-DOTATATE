@@ -1,0 +1,81 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: medication
+title: medication
+type: object
+namespace: http://localhost/
+category: medical_history
+program: '*'
+project: '*'
+description: Information related to medication prescribed, dispensed or administered
+  to the case.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- submitter_id
+- type
+links:
+- name: cases
+  backref: medications
+  label: part_of
+  target_type: case
+  multiplicity: many_to_one
+  required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  dose_sequence_number:
+    type: integer
+    description: The sequence number of a specific dose of a medication given in a
+      series of doses.
+  medication_code:
+    type: string
+    description: The code for a specific medication, assigned by the code system.
+  medication_code_system:
+    type: string
+    description: The code for a specific medication, assigned by the code system.
+  medication_manufacturer:
+    type: string
+    description: The name of the company that manufactured the medication.
+  medication_name:
+    type: string
+    description: The name of the specific medication the case was prescribed or administered.
+  medication_type:
+    description: A categorization of medication used to describe the type of medication
+      the patient was perscribed or administered.
+    enum:
+    - ACE inhibitors
+    - Bronchodilator
+    - Chemotherapy
+    - Immunosuppressive medication
+    - Immunotherapy
+    - Inhaled steroids
+    - NSAID
+    - Protease inhibitor
+    - Supplemental oxygen
+    - Systemic steroids
+    - Vaccine
+  days_to_medication_start:
+    type: integer
+    description: The number of days from the index date to the date the case started
+      a specific medication.
+  days_to_medication_end:
+    type: integer
+    description: The number of days from the index date to the date the case stopped
+      a specific medication.
+  cases:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

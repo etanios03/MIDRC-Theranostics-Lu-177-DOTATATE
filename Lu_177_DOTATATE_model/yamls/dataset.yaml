@@ -1,0 +1,92 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: dataset
+title: dataset
+type: object
+namespace: http://localhost/
+category: administrative
+program: '*'
+project: '*'
+description: A set of metadata and associated data file objects originating from single
+  a research study, clinical trial or patient cohort.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- data_description
+- submitter_id
+- type
+links:
+- name: projects
+  backref: datasets
+  label: part_of
+  target_type: project
+  multiplicity: many_to_one
+  required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  acknowledgement:
+    type: string
+    description: Publication acknowledgement(s) for the published dataset.
+  data_citation:
+    type: string
+    description: The citation for the published dataset.
+  data_contributor:
+    type: string
+    description: The name of the organization or individual that the contributed dataset
+      belongs to.
+  data_description:
+    type: string
+    description: A brief, free-text description of the data files and associated metadata
+      provided for this dataset.
+  data_url_doi:
+    type: string
+    description: A URL or DOI for the source of the dataset or the contributing organization's
+      website.
+  disease_type:
+    type: string
+    description: The primary type of disease studied in this dataset, if applicable.
+  full_name:
+    type: string
+    description: The full name or title of the dataset or publication.
+  license:
+    type: string
+    description: The license under which the dataset has been published.
+  longitudinal:
+    type: boolean
+    description: Indicates whether the dataset has longitudinal or time-series data.
+  primary_site:
+    type: string
+    description: The primary body site studied in this dataset.
+  publication_citation:
+    type: string
+    description: The major or main publication(s) associated with the data itself
+      or with the publication that published the dataset.
+  research_description:
+    type: string
+    description: If the dataset is related to a research study, provide a brief, free-text
+      description or abstract of the study being performed, for example, the hypothesis
+      being tested and a very brief description of the materials, methods and results.
+  research_design:
+    type: string
+    description: A summary of the goals of the research or a general description of
+      the research's relationship to a clinical application.
+  research_objective:
+    type: string
+    description: The general objective of the research; what the researchers hope
+      to discover or determine.
+  research_setup:
+    type: string
+    description: A high level description of the setup used to achieve the research
+      objectives.
+  projects:
+    $ref: _definitions.yaml#/to_one_project
+additionalProperties: false

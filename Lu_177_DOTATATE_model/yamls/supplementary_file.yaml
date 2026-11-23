@@ -1,0 +1,76 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: supplementary_file
+title: supplementary_file
+type: object
+namespace: http://localhost/
+category: data_file
+program: '*'
+project: '*'
+description: Supplementary files associated with a study.
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- data_type
+- data_category
+- data_format
+- submitter_id
+- type
+links:
+- exclusive: false
+  required: true
+  subgroup:
+  - name: core_metadata_collections
+    backref: supplementary_files
+    label: part_of
+    target_type: core_metadata_collection
+    multiplicity: many_to_one
+    required: true
+  - name: datasets
+    backref: supplementary_files
+    label: part_of
+    target_type: dataset
+    multiplicity: many_to_one
+    required: true
+  - name: core_metadata_collections
+    backref: supplementary_files
+    label: part_of
+    target_type: core_metadata_collection
+    multiplicity: one_to_one
+    required: false
+properties:
+  $ref: _definitions.yaml#/data_file_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  file_description:
+    type: string
+    description: Free text to expand upon details for this file
+  data_type:
+    type: string
+    description: The type of supplementary file, for example, figures, tables, clinical
+      data, notes, publications, summary statistics, etc.
+  data_category:
+    type: string
+    description: The text term describing the broad category that the supplementary
+      file falls into.
+  data_format:
+    type: string
+    description: The text term describing the file format of the supplementary file,
+      for example, PDF, XLSX, JPEG, PNG, TSV, etc.
+  core_metadata_collections:
+    $ref: _definitions.yaml#/to_one
+  datasets:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

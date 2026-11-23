@@ -1,0 +1,159 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: pt_series_file
+title: pt_series_file
+type: object
+namespace: http://localhost/
+category: imaging
+program: '*'
+project: '*'
+description: 'Information related to a PT imaging series to which one or more positron
+  emission tomography (PET) images belong. Also carries the radiopharmaceutical therapy
+  (RPT) acquisition metadata: pet imaging files reflecting one acquisition.'
+submittable: true
+validators: null
+systemProperties:
+- id
+- project_id
+- state
+- created_datetime
+- updated_datetime
+uniqueKeys:
+- - id
+- - project_id
+  - submitter_id
+required:
+- case_ids
+- data_category
+- data_format
+- data_type
+- submitter_id
+- type
+links:
+- exclusive: false
+  required: true
+  subgroup:
+  - name: core_metadata_collections
+    backref: pt_series_files
+    label: part_of
+    target_type: core_metadata_collection
+    multiplicity: many_to_one
+    required: true
+  - name: imaging_studys
+    backref: pt_series_files
+    label: part_of
+    target_type: imaging_study
+    multiplicity: many_to_one
+    required: true
+properties:
+  $ref: _definitions.yaml#/ubiquitous_properties
+  case_ids:
+    type: array
+    items:
+      type: string
+    description: A list of one or more case submitter_ids associated with this data.
+  body_part_examined:
+    type: array
+    items:
+      type: string
+    description: (0018, 0015) Body Part Examined.
+  ct_images:
+    type: boolean
+    description: Indicates whether a computed tomography image(s) are assocated with
+      this PET scan (e.g. PET/CT).
+  image_data_modification_name:
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software
+      tools, processes) used to modify the study series. More information can be found
+      at midrc.org.
+  image_data_modification_method:
+    description: A categorical description of the type of image modification performed
+      on the study series.
+    enum:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+  image_data_modified:
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel
+      data has been performed on the study series.
+  lossy_image_compression:
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed
+      with a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is
+      set to "01". Subsequently, if the image is decompressed and transferred in uncompressed
+      format, this Attribute value remains "01".
+    enum:
+    - '00'
+    - '01'
+  manufacturer:
+    type: string
+    description: (0008, 0070) Manufacturer.
+  manufacturer_model_name:
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+  modality:
+    type: string
+    description: (0008, 0060) Modality.
+  number_of_instances:
+    type: integer
+    description: The number of instances included in this series.
+  radiopharmaceutical:
+    type: string
+    description: (0018,0031) Radiopharmaceutical.
+  series_description:
+    type: string
+    description: (0008, 103e) Series Description.
+  series_uid:
+    type: string
+    description: (0020, 000e) Series Instance UID.
+  slice_thickness:
+    type: array
+    items:
+      type: string
+    description: (0018, 0050) Slice Thickness.
+  data_category:
+    description: Broad categorization of the contents of the data file.
+    enum:
+    - PT
+  data_format:
+    description: Format of the data files.
+    enum:
+    - DCM
+    - nii.gz
+  data_type:
+    description: Specific content type of the data file.
+    enum:
+    - DICOM
+    - NIfTI
+  injected_activity:
+    type: number
+    description: injected activity
+  injection_time:
+    $ref: _definitions.yaml#/datetime
+  imaging_time:
+    $ref: _definitions.yaml#/datetime
+  image_acquisition_params:
+    type: array
+    items:
+      type: string
+    description: parameters used for image acquisition
+  image_reconstruction_params:
+    type: array
+    items:
+      type: string
+    description: parameters used for image reconstruction
+  SSTR2_SUV_max:
+    type: number
+    description: Maximum standardized uptake value (SUVmax) measured in somatostatin
+      receptor subtype 2 (SSTR2)-expressing tissue on SSTR PET (e.g., [68Ga]Ga-DOTATATE
+      or [64Cu]Cu-DOTATATE); reflects the highest receptor-mediated tracer uptake
+      and supports patient eligibility assessment for [177Lu]Lu-DOTATATE therapy
+  SSTR2_SUV_mean:
+    type: number
+    description: Mean standardized uptake value (SUVmean) averaged over the SSTR2-expressing
+      region of interest (lesion or organ) on SSTR PET; reflects average receptor-mediated
+      tracer uptake across the segmented volume
+  core_metadata_collections:
+    $ref: _definitions.yaml#/to_one
+  imaging_studys:
+    $ref: _definitions.yaml#/to_one
+additionalProperties: false

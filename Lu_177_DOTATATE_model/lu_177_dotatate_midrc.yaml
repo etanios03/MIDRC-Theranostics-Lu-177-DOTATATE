@@ -1,0 +1,3608 @@
+version: 0.3.0
+url: http://localhost
+nodes:
+- name: case
+  title: Case
+  description: The collection of all data related to a specific patient or case in the context
+    of a specific dataset or experiment.
+  category: administrative
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: age_at_index
+    type: number
+    description: The study participant's age, in years, at the index event. The index event
+      is determined by the data submitter and used as an anchor date for all temporal variables.
+      Note that an age of 0 indicates a participant who is younger than 1 year old. For participants
+      with ages greater than 89 years, please use the property 'age_at_index_gt89'. This property
+      is included to ensure personal privacy protection in accordance with the HIPAA Safe
+      Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    minimum: 0
+    maximum: 89
+    required: false
+  - name: age_at_index_gt89
+    type: enum
+    enums:
+    - 'Yes'
+    - 'No'
+    description: Indicates whether the subject's age at the time of the study was greater
+      than 89 years. This property is included to ensure personal privacy protection in accordance
+      with the HIPAA Safe Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: country_of_residence
+    type: string
+    description: The country where the subject resides.
+    required: false
+  - name: covid19_positive
+    type: enum
+    enums:
+    - 'Yes'
+    - 'No'
+    - Indeterminate
+    - Not Reported
+    description: 'An indicator of whether the patient has ever had a positive COVID-19 test
+      or been diagnosed with one of the following ICD-10 COVID-19 conditions: COVID-19 (U07.
+      1), Influenza due to unidentified influenza virus with other manifestations (J11.8),
+      Post COVID-19 condition (U09.9), Myalgic encephalomyelitis/chronic fatigue syndrome
+      (G93.32), or Sequelae of other specified infectious and parasitic diseases (B94.8).
+      For more information about a patient''s specific COVID-19 diagnosis, details can be
+      found under Condition.'
+    required: false
+  - name: ethnicity
+    type: enum
+    enums:
+    - Hispanic or Latino
+    - Not Hispanic or Latino
+    - Not Reported
+    description: A social group characterized by a distinctive social and cultural tradition
+      that is maintained from generation to generation. Members share a common history and
+      origin and a sense of identification with the group. They have similar and distinctive
+      features in their lifestyle habits and shared experiences. They often have a common
+      genetic heritage which may be reflected in their experience of health and disease.
+    required: false
+  - name: gen3_linked_subjects_available
+    type: boolean
+    description: Indicates whether there is data available for the subject in other data resources.
+    required: false
+  - name: icu_indicator
+    type: boolean
+    description: Indicates whether the subject has been admitted to the ICU.
+    required: false
+  - name: index_event
+    type: enum
+    enums:
+    - COVID-19 Test
+    - Long COVID Diagnosis
+    - Study Enrollment
+    - First Imaging Study
+    description: The event used as the anchor or start date for all temporal data elements.
+      This acts as day 0 on a timeline of events relating to the patient. This property is
+      included to ensure personal privacy protection in accordance with the HIPAA Safe Harbor
+      Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: linked_external_data
+    type: array
+    description: A list of all external data resources that are confirmed to have data for
+      the case.
+    required: false
+  - name: long_covid_diagnosis
+    type: enum
+    enums:
+    - Positive
+    - Not Reported
+    description: 'An indicator of whether the patient has ever been diagnosed with one of
+      the following ICD-10 long COVID-19 conditions: U09.9 (Post COVID-19 condition, unspecified),
+      G93.32 (Myalgic encephalomyelitis/chronic fatigue syndrome), and B94.8 (Sequelae of
+      other specified infectious and parasitic diseases). ''Positive'' means the patient was
+      diagnosed with a long COVID condition, while ''Not Reported'' means the patient has
+      never been diagnosed with a long COVID condition.'
+    required: false
+  - name: race
+    type: enum
+    enums:
+    - American Indian or Alaska Native
+    - Asian
+    - Black or African American
+    - Native Hawaiian or other Pacific Islander
+    - Other
+    - White
+    - Not Reported
+    description: A geographic ancestral origin category that is assigned to a population group
+      based mainly on physical characteristics that are thought to be distinct and inherent.
+    required: false
+  - name: sex
+    type: enum
+    enums:
+    - Female
+    - Male
+    - Not Reported
+    description: The biologic character or quality that distinguishes male and female from
+      one another as expressed by analysis of the person's gonadal, morphologic (internal
+      and external), chromosomal, and hormonal characteristics.
+    required: false
+  - name: site_id
+    type: string
+    description: A de-identified code used to classify a case as part of a specific data submission.
+    required: false
+  - name: token_record_id
+    type: string
+    description: An ID used to link a de-identified case in MIDRC to the same case in an external
+      data resource.
+    required: false
+  - name: treatment_info
+    type: boolean
+    description: Indicates whether detailed treatment information is available for the subject.
+    required: false
+  - name: ventilator_indicator
+    type: boolean
+    description: Indicates whether the subject has been on a ventilator.
+    required: false
+  - name: zip
+    type: string
+    description: The three-digit United States zip code of residence for any population greater
+      than 20,000. For zip codes where the three digit number represents a population less
+      than 20,000 "000" will be provided.
+    required: false
+  - name: case_id
+    type: string
+    description: A deidentified identifier for the subject
+    required: true
+
+- name: condition
+  title: Condition
+  description: Information related to the condition(s) of a case within the context of a particular
+    study (e.g., a medical diagnoses, comorbidities). This includes a snapshot of the case's
+    status with respect to certain diseases, disorders, symptoms, injuries, or illnesses within
+    the context of the study.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: condition_code
+    type: string
+    description: The code for a specific condition, assigned by the code system.
+    required: false
+  - name: condition_code_system
+    type: string
+    description: The system that assigned the code for a specific condition.
+    required: false
+  - name: condition_name
+    type: string
+    description: The name of the condition the patient has experienced.
+    required: false
+  - name: days_to_condition_end
+    type: integer
+    description: The number of days from the index date to the date the subject no longer
+      experienced the condition. This property is included to ensure personal privacy protection
+      in accordance with the HIPAA Safe Harbor Method. More information can be found here
+      https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: days_to_condition_start
+    type: integer
+    description: The number of days from the index date to the date the subject was diagnosed
+      with or began experiencing the condition. This property is included to ensure personal
+      privacy protection in accordance with the HIPAA Safe Harbor Method. More information
+      can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: performance_status_ECOG
+    type: enum
+    enums:
+    - '0'
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    description: ECOG performance status score describing patient's level of functioning and
+      ability to perform daily activities
+    required: false
+
+- name: core_metadata_collection
+  title: Core Metadata Collection
+  description: A collection of data files in a project.
+  category: administrative
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: contributor
+    type: string
+    description: An entity responsible for making contributions to the resource. Examples
+      of a Contributor include a person, an organization, or a service. Typically, the name
+      of a Contributor should be used to indicate the entity.
+    required: false
+  - name: coverage
+    type: string
+    description: The spatial or temporal topic of the resource, the spatial applicability
+      of the resource, or the jurisdiction under which the resource is relevant. Spatial topic
+      and spatial applicability may be a named place or a location specified by its geographic
+      coordinates. Temporal topic may be a named period, date, or date range. A jurisdiction
+      may be a named administrative entity or a geographic place to which the resource applies.
+      Recommended best practice is to use a controlled vocabulary such as the Thesaurus of
+      Geographic Names [TGN] (http-//www.getty.edu/research/tools/vocabulary/tgn/index.html).
+      Where appropriate, named places or time periods can be used in preference to numeric
+      identifiers such as sets of coordinates or date ranges.
+    required: false
+  - name: creator
+    type: string
+    description: An entity primarily responsible for making the resource. Examples of a Creator
+      include a person, an organization, or a service. Typically, the name of a Creator should
+      be used to indicate the entity.
+    required: false
+  - name: data_type
+    type: string
+    description: The nature or genre of the resource. Recommended best practice is to use
+      a controlled vocabulary such as the DCMI Type Vocabulary [DCMITYPE](https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/).
+      To describe the file format, physical medium, or dimensions of the resource, use the
+      Format element.
+    required: false
+  - name: date
+    type: string
+    description: The date the collection of data was created.
+    required: false
+  - name: description
+    type: string
+    description: An account of the resource. Description may include but is not limited to-
+      an abstract, a table of contents, a graphical representation, or a free-text account
+      of the resource.
+    required: false
+  - name: format
+    type: string
+    description: The file format, physical medium, or dimensions of the resource. Examples
+      of dimensions include size and duration. Recommended best practice is to use a controlled
+      vocabulary such as the list of Internet Media Types [MIME] (http-//www.iana.org/assignments/media-types/).
+    required: false
+  - name: language
+    type: string
+    description: A language of the resource. Recommended best practice is to use a controlled
+      vocabulary such as RFC 4646 (http-//www.ietf.org/rfc/rfc4646.txt).
+    required: false
+  - name: publisher
+    type: string
+    description: An entity responsible for making the resource available. Examples of a Publisher
+      include a person, an organization, or a service. Typically, the name of a Publisher
+      should be used to indicate the entity.
+    required: false
+  - name: relation
+    type: string
+    description: A related resource. Recommended best practice is to identify the related
+      resource by means of a string conforming to a formal identification system.
+    required: false
+  - name: rights
+    type: string
+    description: Information about rights held in and over the resource. Typically, rights
+      information includes a statement about various property rights associated with the resource,
+      including intellectual property rights.
+    required: false
+  - name: source
+    type: string
+    description: A related resource from which the described resource is derived. The described
+      resource may be derived from the related resource in whole or in part. Recommended best
+      practice is to identify the related resource by means of a string conforming to a formal
+      identification system.
+    required: false
+  - name: subject
+    type: string
+    description: The topic of the resource. Typically, the subject will be represented using
+      keywords, key phrases, or classification codes. Recommended best practice is to use
+      a controlled vocabulary.
+    required: false
+  - name: title
+    type: string
+    description: A name given to the resource. Typically, a Title will be a name by which
+      the resource is formally known.
+    required: false
+
+- name: cr_series_file
+  title: CR Series File
+  description: A package of image files and metadata related to a CR imaging series to which
+    one or more computed radiograph (CR) instances belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: detector_type
+    type: enum
+    enums:
+    - DIRECT
+    - SCINTILLATOR
+    - STORAGE
+    - FILM
+    description: (0018, 7004) Detector Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: spatial_resolution
+    type: number
+    description: (0018, 1050) Spatial Resolution.
+    required: false
+  - name: view_position
+    type: array
+    description: (0018, 5101) View Position.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - CR
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: ct_series_file
+  title: CT Series File
+  description: 'A package of image files and metadata related to a CT imaging series to which
+    one or more computed tomography instances belong. Also carries the radiopharmaceutical
+    therapy (RPT) acquisition metadata: ct imaging files reflecting one acquisition.'
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: true
+  - name: acquisition_type
+    type: enum
+    enums:
+    - SEQUENCED
+    - SPIRAL
+    - CONSTANT_ANGLE
+    - STATIONARY
+    - FREE
+    description: (0018, 9302) Acquisition Type.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: convolution_kernel
+    type: array
+    description: (0018, 1210) Convolution Kernel.
+    required: false
+  - name: exposure_modulation_type
+    type: string
+    description: (0018, 9323) Exposure Modulation Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: patient_position
+    type: string
+    description: (0018,5100) Patient Position.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: slice_thickness
+    type: array
+    description: (0018, 0050) Slice Thickness.
+    required: false
+  - name: spacing_between_slices
+    type: array
+    description: (0018, 0088) Spacing Between Slices.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - CT
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+  - name: injected_activity
+    type: number
+    description: injected activity
+    required: false
+  - name: injection_time
+    type: datetime
+    description: time of injection
+    required: false
+  - name: imaging_time
+    type: datetime
+    description: time of imaging
+    required: false
+  - name: image_acquisition_params
+    type: array
+    description: parameters used for image acquisition
+    required: false
+  - name: image_reconstruction_params
+    type: array
+    description: parameters used for image reconstruction
+    required: false
+
+- name: dataset
+  title: Dataset
+  description: A set of metadata and associated data file objects originating from single
+    a research study, clinical trial or patient cohort.
+  category: administrative
+  properties:
+  - name: acknowledgement
+    type: string
+    description: Publication acknowledgement(s) for the published dataset.
+    required: false
+  - name: data_citation
+    type: string
+    description: The citation for the published dataset.
+    required: false
+  - name: data_contributor
+    type: string
+    description: The name of the organization or individual that the contributed dataset belongs
+      to.
+    required: false
+  - name: data_description
+    type: string
+    description: A brief, free-text description of the data files and associated metadata
+      provided for this dataset.
+    required: true
+  - name: data_url_doi
+    type: string
+    description: A URL or DOI for the source of the dataset or the contributing organization's
+      website.
+    required: false
+  - name: disease_type
+    type: string
+    description: The primary type of disease studied in this dataset, if applicable.
+    required: false
+  - name: full_name
+    type: string
+    description: The full name or title of the dataset or publication.
+    required: false
+  - name: license
+    type: string
+    description: The license under which the dataset has been published.
+    required: false
+  - name: longitudinal
+    type: boolean
+    description: Indicates whether the dataset has longitudinal or time-series data.
+    required: false
+  - name: primary_site
+    type: string
+    description: The primary body site studied in this dataset.
+    required: false
+  - name: publication_citation
+    type: string
+    description: The major or main publication(s) associated with the data itself or with
+      the publication that published the dataset.
+    required: false
+  - name: research_description
+    type: string
+    description: If the dataset is related to a research study, provide a brief, free-text
+      description or abstract of the study being performed, for example, the hypothesis being
+      tested and a very brief description of the materials, methods and results.
+    required: false
+  - name: research_design
+    type: string
+    description: A summary of the goals of the research or a general description of the research's
+      relationship to a clinical application.
+    required: false
+  - name: research_objective
+    type: string
+    description: The general objective of the research; what the researchers hope to discover
+      or determine.
+    required: false
+  - name: research_setup
+    type: string
+    description: A high level description of the setup used to achieve the research objectives.
+    required: false
+
+- name: dx_series_file
+  title: DX Series File
+  description: A package of image files and metadata related to a DX imaging series to which
+    one or more digital radiograph (x-rays) instances belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: detector_type
+    type: enum
+    enums:
+    - DIRECT
+    - SCINTILLATOR
+    - STORAGE
+    - FILM
+    description: (0018, 7004) Detector Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: spatial_resolution
+    type: number
+    description: (0018, 1050) Spatial Resolution.
+    required: false
+  - name: view_position
+    type: array
+    description: (0018, 5101) View Position.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - DX
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: imaging_study
+  title: Imaging Study
+  description: Information related to an imaging study or exam done for diagnostic or research
+    purposes, including patient clinical or contextual data recorded at the time of the imaging
+    study.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: true
+  - name: age_at_imaging
+    type: number
+    description: The study participant's age, in years, at the time the imaging study was
+      performed. Note that an age of 0 indicates a participant who is younger than 1 year
+      old. For participants with ages greater than 89 years, please use the property 'age_at_index_gt89'.
+    minimum: 0
+    maximum: 89
+    required: false
+  - name: age_at_imaging_gt89
+    type: enum
+    enums:
+    - 'Yes'
+    - 'No'
+    description: Indicates whether the age of the patient in years at the time the imaging
+      study was performed is greater than 89 years. This property is included to ensure personal
+      privacy protection in accordance with the HIPAA Safe Harbor Method. More information
+      can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: body_part_examined
+    type: array
+    description: (0018, 0015) Body Part Examined.
+    required: false
+  - name: days_from_study_to_neg_covid_test
+    type: array
+    description: The number of days from the imaging study to the patient's negative COVID-19
+      test(s). This property takes a list of values, each of which represents a COVID-19 test
+      for the patient. A positive value for this property means that a negative COVID-19 test
+      result was obtained for the patient that many days after the imaging study was performed.
+      A negative value indicates that a negative COVID-19 test result was obtained prior to
+      the date of imaging. This property is included to ensure personal privacy protection
+      in accordance with the HIPAA Safe Harbor Method. More information can be found here
+      https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: days_from_study_to_pos_covid_test
+    type: array
+    description: The number of days from the imaging study to the patient's positive COVID-19
+      test(s). This property takes a list of values, each of which represents a COVID-19 test
+      for the patient. A positive value for this property means that a positive COVID-19 test
+      result was obtained for the patient that many days after the imaging study was performed.
+      A negative value indicates that the positive COVID-19 test result was obtained prior
+      to the date of imaging. This property is included to ensure personal privacy protection
+      in accordance with the HIPAA Safe Harbor Method. More information can be found here
+      https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: days_to_study
+    type: number
+    description: The number of days between the case's index date and the date of the imaging
+      study. This property is included to ensure personal privacy protection in accordance
+      with the HIPAA Safe Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study.
+    required: false
+  - name: loinc_code
+    type: string
+    description: The LOINC code assigned based on the study description provided. The Logical
+      Observation Identifiers, Names, and Codes (LOINC) standard is A common language (set
+      of identifiers, names, and codes) for clinical and laboratory observations.
+    required: false
+  - name: loinc_contrast
+    type: string
+    description: The LOINC indicator noting whether the image was completed with or without
+      contrast, as associated with the assigned LOINC code. The Logical Observation Identifiers,
+      Names, and Codes (LOINC) standard is A common language (set of identifiers, names, and
+      codes) for clinical and laboratory observations.
+    required: false
+  - name: loinc_long_common_name
+    type: string
+    description: The LOINC long common name associated with the assigned LOINC code. The Logical
+      Observation Identifiers, Names, and Codes (LOINC) standard is A common language (set
+      of identifiers, names, and codes) for clinical and laboratory observations.
+    required: false
+  - name: loinc_method
+    type: string
+    description: The LOINC method or imaging modality associated with the assigned LOINC code.
+      The Logical Observation Identifiers, Names, and Codes (LOINC) standard is A common language
+      (set of identifiers, names, and codes) for clinical and laboratory observations.
+    required: false
+  - name: loinc_system
+    type: string
+    description: The LOINC system or body part examined associated with the assigned LOINC
+      code. The Logical Observation Identifiers, Names, and Codes (LOINC) standard is A common
+      language (set of identifiers, names, and codes) for clinical and laboratory observations.
+    required: false
+  - name: study_description
+    type: string
+    description: (0008, 1030) Study Description.
+    required: false
+  - name: study_modality
+    type: array
+    description: The modalities of the imaging study; derived from (0008, 0060) Modality.
+    required: false
+  - name: study_uid
+    type: string
+    description: (0020, 000d) Study Instance UID.
+    required: false
+  - name: study_year
+    type: integer
+    description: The year when imaging study was performed; year component of Study Date (0008,
+      0020).
+    required: false
+  - name: study_year_shifted
+    type: boolean
+    description: Indicates whether the study year has been shifted for de-identification.
+      This property is included to ensure personal privacy protection in accordance with the
+      HIPAA Safe Harbor Method. More information can be found here https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html.
+    required: false
+  - name: datasets
+    type: string
+    description: The submitter_id or id of the dataset this case belongs to, i.e., a link
+      to a record in the parent node.
+    required: false
+  - name: loinc_modality
+    type: string
+    description: The LOINC method or imaging modality associated with the assigned LOINC code
+    required: false
+  - name: modality
+    type: enum
+    enums:
+    - PET
+    - CT
+    - SPECT
+    - MRI
+    description: Modality of the imaging study, derived from DICOM tag (0008,0060)
+    required: false
+  - name: SUV_max
+    type: number
+    description: highest point of radioactive tracer concentration in region of tissue
+    required: false
+  - name: mean_SUV
+    type: number
+    description: average concentration of radiopharmaceutical within a specific region
+    required: false
+  - name: tumor_volume
+    type: number
+    description: volume of tumor
+    required: false
+  - name: scan_timepoint
+    type: integer
+    description: Days from treatment cycle start at which this imaging study was acquired,
+      to support multi-timepoint time-series linking
+    required: false
+
+- name: measurement
+  title: Measurement
+  description: A structured value (numerical or categorical) obtained through systematic examination
+    of a person or sample.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: test_days_from_index
+    type: integer
+    description: A number of days beginning with the index date and ending with the date of
+      the test.
+    required: false
+  - name: test_method
+    type: enum
+    enums:
+    - RT-PCR
+    - Rapid antigen test
+    - Not Reported
+    description: The test method used to confirm a condition or produce a measurement.
+    required: false
+  - name: test_name
+    type: enum
+    enums:
+    - COVID-19
+    description: The name of the test for which this measurement was the result.
+    required: false
+  - name: test_result_text
+    type: enum
+    enums:
+    - Indeterminate
+    - Negative
+    - Positive
+    - Not Reported
+    description: The measured result of the test described using a list of enumerations.
+    required: false
+
+- name: medication
+  title: Medication
+  description: Information related to medication prescribed, dispensed or administered to
+    the case.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: dose_sequence_number
+    type: integer
+    description: The sequence number of a specific dose of a medication given in a series
+      of doses.
+    required: false
+  - name: medication_code
+    type: string
+    description: The code for a specific medication, assigned by the code system.
+    required: false
+  - name: medication_code_system
+    type: string
+    description: The code for a specific medication, assigned by the code system.
+    required: false
+  - name: medication_manufacturer
+    type: string
+    description: The name of the company that manufactured the medication.
+    required: false
+  - name: medication_name
+    type: string
+    description: The name of the specific medication the case was prescribed or administered.
+    required: false
+  - name: medication_type
+    type: enum
+    enums:
+    - ACE inhibitors
+    - Bronchodilator
+    - Chemotherapy
+    - Immunosuppressive medication
+    - Immunotherapy
+    - Inhaled steroids
+    - NSAID
+    - Protease inhibitor
+    - Supplemental oxygen
+    - Systemic steroids
+    - Vaccine
+    description: A categorization of medication used to describe the type of medication the
+      patient was perscribed or administered.
+    required: false
+  - name: days_to_medication_start
+    type: integer
+    description: The number of days from the index date to the date the case started a specific
+      medication.
+    required: false
+  - name: days_to_medication_end
+    type: integer
+    description: The number of days from the index date to the date the case stopped a specific
+      medication.
+    required: false
+
+- name: mg_series_file
+  title: MG Series File
+  description: Information related to a mammography (MG) imaging series to which one or more
+    mammography images belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: code_meaning
+    type: array
+    description: (0008,0104) Code Meaning. Note that code_meaning is pulled from the View
+      Code Sequence (0054,0220).
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: detector_type
+    type: enum
+    enums:
+    - DIRECT
+    - SCINTILLATOR
+    - STORAGE
+    - FILM
+    description: (0018, 7004) Detector Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: sop_class_name
+    type: array
+    enums:
+    - Digital Mammography X-Ray Image Storage - For Presentation
+    - Digital Mammography X-Ray Image Storage - For Processing
+    - Breast Tomosynthesis Image Storage
+    - Breast Projection X-Ray Image Storage - For Presentation
+    - Breast Projection X-Ray Image Storage - For Processing
+    description: The textual description for the (0008, 0016) SOP Class UID Attribute.
+    required: false
+  - name: sop_class_uid
+    type: array
+    enums:
+    - 1.2.840.10008.5.1.4.1.1.1.2
+    - 1.2.840.10008.5.1.4.1.1.1.2.1
+    - 1.2.840.10008.5.1.4.1.1.13.1.3
+    - 1.2.840.10008.5.1.4.1.1.13.1.4
+    - 1.2.840.10008.5.1.4.1.1.13.1.5
+    description: (0008, 0016) SOP Class UID Attribute..
+    required: false
+  - name: spatial_resolution
+    type: number
+    description: (0018, 1050) Spatial Resolution.
+    required: false
+  - name: view_position
+    type: array
+    description: (0018, 5101) View Position.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - MG
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: mr_series_file
+  title: MR Series File
+  description: A package of image files and metadata related to an MR imaging series to which
+    one or more MR (magnetic resonance) images belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: magnetic_field_strength
+    type: array
+    description: (0018,0087) Magnetic Field Strength.
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: mr_acquisition_type
+    type: array
+    description: (0018, 0023) MR Acquisition Type.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: scanning_sequence
+    type: array
+    description: (0018, 0020) Scanning Sequence.
+    required: false
+  - name: sequence_name
+    type: array
+    description: (0018, 0024) Sequence Name.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: slice_thickness
+    type: array
+    description: (0018, 0050) Slice Thickness.
+    required: false
+  - name: spacing_between_slices
+    type: array
+    description: (0018, 0088) Spacing Between Slices.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - MR
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+  - name: angio_flag
+    type: array
+    description: (0018, 0025) Angio Flag.
+    required: false
+  - name: diffusion_b_value
+    type: array
+    description: (0018, 9087) Diffusion b-value.
+    required: false
+  - name: diffusion_gradient_orientation
+    type: string
+    description: (0018, 9089) Diffusion Gradient Orientation.
+    required: false
+  - name: echo_number
+    type: array
+    description: (0018, 0086) Echo Number.
+    required: false
+  - name: echo_time
+    type: array
+    description: (0018, 0081) Echo Time.
+    required: false
+  - name: echo_train_length
+    type: array
+    description: (0018, 0091) Echo Train Length.
+    required: false
+  - name: imaged_nucleus
+    type: array
+    description: (0018, 0085) Imaged Nucleus.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: number_of_temporal_positions
+    type: array
+    description: (0018, 0023) MR Acquisition Type.
+    required: false
+  - name: repetition_time
+    type: array
+    description: (0018, 0080) Repetition Time.
+    required: false
+  - name: scan_options
+    type: array
+    description: (0018, 0022) Scan Options.
+    required: false
+  - name: sequence_variant
+    type: array
+    description: (0018, 0021) Sequence Variant.
+    required: false
+  - name: software_version
+    type: string
+    description: (0018, 1020) Software Version(s).
+    required: false
+
+- name: nm_series_file
+  title: NM Series File
+  description: 'Information related to a NM imaging series to which one or more nuclear medicine
+    images belong. Also carries the radiopharmaceutical therapy (RPT) acquisition metadata:
+    planar nm imaging files reflecting one acquisition.'
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: true
+  - name: body_part_examined
+    type: array
+    description: (0018, 0015) Body Part Examined.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: radiopharmaceutical
+    type: string
+    description: (0018,0031) Radiopharmaceutical.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - NM
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+  - name: injected_activity
+    type: number
+    description: injected activity
+    required: false
+  - name: injection_time
+    type: datetime
+    description: time of injection
+    required: false
+  - name: imaging_time
+    type: datetime
+    description: time of imaging
+    required: false
+  - name: image_acquisition_params
+    type: array
+    description: parameters used for image acquisition
+    required: false
+  - name: image_reconstruction_params
+    type: array
+    description: parameters used for image reconstruction
+    required: false
+
+- name: observation
+  title: Observation
+  description: Information about the subject obtained in the context of examination, questioning
+    orduring a procedure.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: observation_name
+    type: string
+    description: The short name of the observation about the subject obtained in the context
+      of examination, questioning or a during procedure.
+    required: false
+  - name: observation_answer
+    type: string
+    description: The answer or value provided for a specific observation about a subject obtained
+      in the context of examination, questioning or during a procedure.
+    required: false
+  - name: days_to_observation
+    type: integer
+    description: The number of days from the index date to the date of the observation.
+    required: false
+
+- name: procedure
+  title: Procedure
+  description: Activities or processes ordered by and/or carried out by a healthcare provider
+    on the patient with diagnostic and/or therapeutic purposes.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: breathing_support_type
+    type: string
+    description: The type of breathing support the patient received.
+    required: false
+  - name: days_to_procedure_start
+    type: integer
+    description: The number of days between the case's index date and the start date of the
+      procedure.
+    required: false
+  - name: days_to_procedure_end
+    type: integer
+    description: The number of days between the case's index date and the end date of the
+      procedure.
+    required: false
+  - name: procedure_name
+    type: enum
+    enums:
+    - Breathing Support
+    description: The name of the procedure performed.
+    required: false
+
+- name: program
+  title: Program
+  description: A broad framework of goals to be achieved. (NCIt C52647)
+  category: administrative
+  properties:
+  - name: name
+    type: string
+    description: Full name/title of the program.
+    required: true
+  - name: dbgap_accession_number
+    type: string
+    description: The dbgap accession number provided for the program.
+    required: true
+
+- name: project
+  title: Project
+  description: Any specifically defined piece of work that is undertaken or attempted to meet
+    a single requirement. (NCIt C47885)
+  category: administrative
+  properties:
+  - name: availability_mechanism
+    type: string
+    description: Mechanism by which the project will be made avilable.
+    required: false
+  - name: availability_type
+    type: enum
+    enums:
+    - Open
+    - Restricted
+    description: Is the project open or restricted?
+    required: false
+  - name: code
+    type: string
+    description: Unique identifier for the project.
+    required: true
+  - name: complete
+    type: enum
+    enums:
+    - Complete
+    - Incomplete
+    description: Description of whether the project submission is complete or still in progress.
+    required: false
+  - name: date_collected
+    type: string
+    description: The date or date range in which the project data was collected.
+    required: false
+  - name: dbgap_accession_number
+    type: string
+    description: The dbgap accession number provided for the project.
+    required: true
+  - name: investigator_affiliation
+    type: string
+    description: The investigator's affiliation with respect to a research institution.
+    required: false
+  - name: investigator_name
+    type: string
+    description: Name of the principal investigator for the project.
+    required: false
+  - name: name
+    type: string
+    description: Display name/brief description for the project.
+    required: true
+  - name: support_source
+    type: string
+    description: The name of source providing support/grant resources.
+    required: false
+  - name: support_id
+    type: string
+    description: The ID of the source providing support/grant resources.
+    required: false
+  - name: acknowledgement
+    type: string
+    description: Publication acknowledgement(s) for the published dataset.
+    required: false
+  - name: data_citation
+    type: string
+    description: The citation for the published dataset.
+    required: false
+  - name: data_contributor
+    type: string
+    description: The name of the organization or individual that the contributed dataset belongs
+      to.
+    required: false
+  - name: data_description
+    type: string
+    description: A brief, free-text description of the data files and associated metadata
+      provided for this dataset.
+    required: false
+  - name: data_url_doi
+    type: string
+    description: A URL or DOI for the source of the dataset or the contributing organization's
+      website.
+    required: false
+  - name: disease_type
+    type: string
+    description: The primary type of disease studied in this dataset, if applicable.
+    required: false
+  - name: license
+    type: string
+    description: The license under which the daaset has been published.
+    required: false
+  - name: longitudinal
+    type: boolean
+    description: Indicates whether the dataset has longitudinal or time-series data.
+    required: false
+  - name: primary_site
+    type: string
+    description: The primary body site studied in this dataset.
+    required: false
+  - name: publication_citation
+    type: string
+    description: The major or main publication(s) associated with the data itself or with
+      the publication that published the dataset.
+    required: false
+  - name: research_description
+    type: string
+    description: If the dataset is related to a research study, provide a brief, free-text
+      description or abstract of the study being performed, for example, the hypothesis being
+      tested and a very brief description of the materials, methods and results.
+    required: false
+  - name: research_design
+    type: string
+    description: A summary of the goals of the research or a general description of the research's
+      relationship to a clinical application.
+    required: false
+  - name: research_objective
+    type: string
+    description: The general objective of the research; what the researchers hope to discover
+      or determine.
+    required: false
+  - name: research_setup
+    type: string
+    description: A high level description of the setup used to achieve the research objectives.
+    required: false
+
+- name: pt_series_file
+  title: PT Series File
+  description: 'Information related to a PT imaging series to which one or more positron emission
+    tomography (PET) images belong. Also carries the radiopharmaceutical therapy (RPT) acquisition
+    metadata: pet imaging files reflecting one acquisition.'
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: true
+  - name: body_part_examined
+    type: array
+    description: (0018, 0015) Body Part Examined.
+    required: false
+  - name: ct_images
+    type: boolean
+    description: Indicates whether a computed tomography image(s) are assocated with this
+      PET scan (e.g. PET/CT).
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: radiopharmaceutical
+    type: string
+    description: (0018,0031) Radiopharmaceutical.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: slice_thickness
+    type: array
+    description: (0018, 0050) Slice Thickness.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - PT
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+  - name: injected_activity
+    type: number
+    description: injected activity
+    required: false
+  - name: injection_time
+    type: datetime
+    description: time of injection
+    required: false
+  - name: imaging_time
+    type: datetime
+    description: time of imaging
+    required: false
+  - name: image_acquisition_params
+    type: array
+    description: parameters used for image acquisition
+    required: false
+  - name: image_reconstruction_params
+    type: array
+    description: parameters used for image reconstruction
+    required: false
+  - name: SSTR2_SUV_max
+    type: number
+    description: Maximum standardized uptake value (SUVmax) measured in somatostatin receptor
+      subtype 2 (SSTR2)-expressing tissue on SSTR PET (e.g., [68Ga]Ga-DOTATATE or [64Cu]Cu-DOTATATE);
+      reflects the highest receptor-mediated tracer uptake and supports patient eligibility
+      assessment for [177Lu]Lu-DOTATATE therapy
+    required: false
+  - name: SSTR2_SUV_mean
+    type: number
+    description: Mean standardized uptake value (SUVmean) averaged over the SSTR2-expressing
+      region of interest (lesion or organ) on SSTR PET; reflects average receptor-mediated
+      tracer uptake across the segmented volume
+    required: false
+
+- name: rf_series_file
+  title: RF Series File
+  description: Information related to a RF imaging series to which one or more X-ray Radiofluoroscopic
+    image belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: detector_type
+    type: enum
+    enums:
+    - DIRECT
+    - SCINTILLATOR
+    - STORAGE
+    - FILM
+    description: (0018, 7004) Detector Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: spatial_resolution
+    type: number
+    description: (0018, 1050) Spatial Resolution.
+    required: false
+  - name: view_position
+    type: array
+    description: (0018, 5101) View Position.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - RF
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: us_series_file
+  title: US Series File
+  description: Information related to a US imaging series to which one or more Ultrasound
+    image belong.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: region_spatial_format
+    type: array
+    enums:
+    - '0000H: None or not applicable'
+    - '0001H: 2D (tissue or flow)'
+    - '0002H: M-Mode (tissue or flow)'
+    - '0003H: Spectral (CW or PW Doppler)'
+    - '0004H: Wave form (physiological traces, Doppler traces,...)'
+    - '0005H: Graphics'
+    description: (0018,6012) Region Spatial Format.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: transducer_type
+    type: enum
+    enums:
+    - SECTOR_PHASED
+    - SECTOR_MECH
+    - SECTOR_ANNULAR
+    - LINEAR
+    - CURVED LINEAR
+    - SINGLE CRYSTAL
+    - SPLIT XTAL CWD
+    - IV_PHASED
+    - IV_ROT XTAL
+    - IV_ROT MIRROR
+    - ENDOCAV_PA
+    - ENDOCAV_MECH
+    - ENDOCAV_CLA
+    - ENDOCAV_AA
+    - ENDOCAV_LINEAR
+    - VECTOR_PHASED
+    description: (0018,6031) Transducer type.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - US
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: visit
+  title: Visit
+  description: Information about a specific visit for a specific case or patient.
+  category: administrative
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: days_to_hospital_admission
+    type: integer
+    description: The number of days between the case's index date and the date of the patient's
+      hospital admission.
+    required: false
+  - name: days_to_hospital_discharge
+    type: integer
+    description: The number of days between the case's index date and the date of the patient's
+      hospital discharge.
+    required: false
+  - name: days_to_icu_admission
+    type: integer
+    description: The number of days between the case's index date and the date of the patient's
+      ICU admission.
+    required: false
+  - name: days_to_icu_discharge
+    type: integer
+    description: The number of days between the case's index date and the date of the patient's
+      ICU discharge.
+    required: false
+  - name: discharge_type
+    type: string
+    description: The status or destination of the patient at the time of discharge.
+    required: false
+
+- name: xa_series_file
+  title: XA Series File
+  description: Information related to a DR imaging series.
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: body_part_examined
+    type: array
+    description: (0018, 0015) Body Part Examined.
+    required: false
+  - name: contrast_bolus_agent
+    type: array
+    description: (0018, 0010) Contrast/Bolus Agent.
+    required: false
+  - name: detector_type
+    type: enum
+    enums:
+    - DIRECT
+    - SCINTILLATOR
+    - STORAGE
+    - FILM
+    description: (0018, 7004) Detector Type.
+    required: false
+  - name: image_data_modification_name
+    type: integer
+    description: A MIDRC classification describing specific methods (e.g., software tools,
+      processes) used to modify the study series. More information can be found at midrc.org.
+    required: false
+  - name: image_data_modification_method
+    type: enum
+    enums:
+    - Removal of alphanumeric characters
+    - Defacing
+    - Skull-stripping
+    description: A categorical description of the type of image modification performed on
+      the study series.
+    required: false
+  - name: image_data_modified
+    type: boolean
+    description: An indicator of whether any post-clinical modification of image pixel data
+      has been performed on the study series.
+    required: false
+  - name: image_type
+    type: array
+    description: (0008, 0008) Image Type.
+    required: false
+  - name: imager_pixel_spacing
+    type: array
+    description: (0018, 1164) Imager Pixel Spacing.
+    required: false
+  - name: lossy_image_compression
+    type: enum
+    enums:
+    - '00'
+    - '01'
+    description: (0028, 2110) Lossy Image Compression; Note, if an image is compressed with
+      a lossy algorithm, the Attribute Lossy Image Compression (0028,2110) is set to "01".
+      Subsequently, if the image is decompressed and transferred in uncompressed format, this
+      Attribute value remains "01".
+    required: false
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer.
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name.
+    required: false
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality.
+    required: false
+  - name: number_of_instances
+    type: integer
+    description: The number of instances included in this series.
+    required: false
+  - name: pixel_spacing
+    type: array
+    description: (0028, 0030) Pixel Spacing.
+    required: false
+  - name: radiation_setting
+    type: array
+    enums:
+    - 'SC: low dose exposure generally corresponding to fluoroscopic settings (e.g., preparation
+      for diagnostic quality image acquisition)'
+    - 'GR: high dose for diagnostic quality image acquisition (also called digital spot or
+      cine)'
+    description: (0018, 1155) Radiation Setting.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description.
+    required: false
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID.
+    required: false
+  - name: spatial_resolution
+    type: number
+    description: (0018, 1050) Spatial Resolution.
+    required: false
+  - name: view_position
+    type: array
+    description: (0018, 5101) View Position.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - XA
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    - nii.gz
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - DICOM
+    - NIfTI
+    description: Specific content type of the data file.
+    required: true
+
+- name: annotation
+  title: Annotation
+  description: Information describing characteristics of imaging studies, series and instances
+    (e.g., segmentations, bounding boxes, feature labels) and inferences based on those characteristics
+    (e.g., predicted diagnoses). Annotations may be recorded in the course of clinical care
+    or retrospectively for purposes of research (e.g., imaging annotations from PACS or retrospective
+    labeling tools). Please refer to https://midrc.org/annotations to learn more about a particular
+    batch of annotations.
+  category: notation
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: airspace_disease_grading
+    type: enum
+    enums:
+    - mild
+    - moderate
+    - severe
+    description: Values are extracted from the annotation file midrc_mdai_chestxr. Accepted
+      values are "mild" opacities (1-2 lung zones), "moderate" opacities (3-4 lung zones),
+      and "severe" opacities (>4 lung zones).
+    required: false
+  - name: annotator_id
+    type: string
+    description: Coded value to represent a particular annotator in a group. These need only
+      be unique per annotation.
+    required: false
+  - name: annotation_long_name
+    type: string
+    description: The long name of the annotation provides more information about the specific
+      annotation.
+    required: false
+  - name: annotation_method
+    type: enum
+    enums:
+    - Clinically_derived
+    - Retrospective_expert
+    - Retrospective_general
+    - Retrospective_auto
+    description: Defines the method by which the annotation was created. Clinically_derived
+      - Based on information produced in the process of the subject's medical care; Retrospective_expert
+      - Based on information produced retrospective to the subject's care by annotators with
+      relevant special clinical expertise; Retrospective_general - Based on information produced
+      retrospective to the subject's care by annotators without relevant special clinical
+      expertise; Retrospective_auto - Based on information produced retrospective to the subject's
+      care using automated means.
+    required: false
+  - name: annotation_name
+    type: enum
+    enums:
+    - midrc_bpr_landmarks
+    - midrc_bpr_regions
+    - midrc_lung_segs
+    - midrc_lung_measures
+    - midrc_mdai_chestxr
+    - midrc_mRALE_Mastermind_Challenge
+    - SIFT
+    description: The name of the annotation. These names are unique and assigned by MIDRC.
+      Annotation names reference a document posted on the MIDRC website describing the annotation,
+      methods and values expected. All MIDRC created annotations start with "midrc_".
+    required: false
+  - name: class_covid19_pneumonia
+    type: enum
+    enums:
+    - atypical
+    - indeterminate
+    - negative
+    - typical
+    description: Values are extracted from the annotation file midrc_mdai_chestxr; Accepted
+      values include "typical" appearance, which is multifocal bilateral, peripheral opacities,
+      or opacities with rounded morphology, lower lung-predominant distribution; "indeterminate"
+      appearance, which is absence of typical findings and unilateral, central or upper lung
+      predominant distribution of airspace disease; "atypical" appearance, which is pneumothorax
+      or pleural effusion, pulmonary edema, lobar consolidation, solitary lung nodule, or
+      mass diffuse tiny nodules cavity; "negative" for pneumonia, which is no lung opacities.
+    required: false
+  - name: instance_uids
+    type: array
+    description: Used to denote that this annotation applies only to specific images (image
+      instances) in a series. If absent, an annotation that references an imaging series node
+      applies to the entire imaging series.
+    required: false
+  - name: midrc_mRALE_score
+    type: integer
+    description: Values are extracted from the annotation file mRALE_Mastermind_Challenge.
+      The Radiographic Assessment of Lung Edema (RALE) score is provided as a reference standard
+      assessment of disease severity on chest radiograph. A normal chest radiograph receives
+      a score of 0, while a chest radiograph with complete consolidation of both lungs receives
+      the maximum score of 24.
+    minimum: 0
+    maximum: 24
+    required: false
+  - name: sift_image_quality_index
+    type: enum
+    enums:
+    - A
+    - B
+    - C
+    - D
+    - Not Reported
+    description: A score of image quality based on the SIFT annotation software.
+    required: false
+  - name: software_version
+    type: string
+    description: (0018, 1020) Software Version(s).
+    required: false
+
+- name: annotation_file
+  title: Annotation File
+  description: The annotation_file node provides the ability to link a file containing annotation
+    information to a case, imaging study or imaging series.
+  category: data_file
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: annotation_long_name
+    type: string
+    description: The long name of the annotation provides more information about the specific
+      annotation.
+    required: false
+  - name: annotation_method
+    type: enum
+    enums:
+    - Clinically_derived
+    - Retrospective_expert
+    - Retrospective_general
+    - Retrospective_auto
+    description: Defines the method by which the annotation was created. Clinically_derived
+      - Based on information produced in the process of the subject's medical care; Retrospective_expert
+      - Based on information produced retrospective to the subject's care by annotators with
+      relevant special clinical expertise; Retrospective_general - Based on information produced
+      retrospective to the subject's care by annotators without relevant special clinical
+      expertise; Retrospective_auto - Based on information produced retrospective to the subject's
+      care using automated means.
+    required: false
+  - name: annotation_name
+    type: enum
+    enums:
+    - midrc_bpr_landmarks
+    - midrc_bpr_regions
+    - midrc_lung_segs
+    - midrc_lung_measures
+    - midrc_mdai_chestxr
+    - midrc_mRALE_Mastermind_Challenge
+    - uchicago_msk_shoulder_labrum
+    - duke-CSpineSeg
+    - SIFT
+    description: The name of the annotation. These names are unique and assigned by MIDRC.
+      Annotation names reference a document posted on the MIDRC website describing the annotation,
+      methods and values expected. All MIDRC created annotations start with "midrc_".
+    required: true
+  - name: annotator_id
+    type: string
+    description: Coded value to represent a particular annotator in a group. These need only
+      be unique per annotation.
+    required: false
+  - name: instance_uids
+    type: array
+    description: Used to denote that this annotation applies only to specific images (image
+      instances) in a series. If absent, an annotation that references an imaging series node
+      applies to the entire imaging series.
+    required: false
+  - name: software_versions
+    type: string
+    description: (0018,1020) Software Versions. This is the software version of the application
+      where the annotation series was created.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - annotation_file
+    description: The category of the file; must be "annotation_file".
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - XML
+    - JSON
+    - CSV
+    - JPEG
+    - TIF
+    - TXT
+    - NII
+    description: The file format of the annotation file, e.g., JSON.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - Internal Annotation
+    - External Annotation
+    description: An indication of whether the annotation is expert validated by MIDRC (“Internal
+      Annotation”) or has not been validated by MIDRC experts (“External Annotation”).
+    required: true
+
+- name: dicom_annotation_file
+  title: DICOM Annotation Series File
+  description: The dicom_annotation_file node provides the ability to link a DICOM series
+    file containing annotation information to an imaging study.
+  category: data_file
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: true
+  - name: annotation_method
+    type: enum
+    enums:
+    - Clinically_derived
+    - Retrospective_expert
+    - Retrospective_general
+    - Retrospective_auto
+    description: Defines the method by which the annotation was created. Clinically_derived
+      - Based on information produced in the process of the subject's medical care; Retrospective_expert
+      - Based on information produced retrospective to the subject's care by annotators with
+      relevant special clinical expertise; Retrospective_general - Based on information produced
+      retrospective to the subject's care by annotators without relevant special clinical
+      expertise; Retrospective_auto - Based on information produced retrospective to the subject's
+      care using automated means.
+    required: false
+  - name: annotator_id
+    type: string
+    description: Coded value to represent a particular annotator in a group. These need only
+      be unique per annotation.
+    required: false
+  - name: series_description
+    type: string
+    description: (0008, 103e) Series Description; a general description of or additional information
+      about the imaging series. If possible, the Series Description should match the annotation_name
+      provided.
+    required: true
+  - name: annotation_name
+    type: enum
+    enums:
+    - midrc_bpr_landmarks
+    - midrc_bpr_regions
+    - midrc_lung_segs
+    - midrc_lung_measures
+    - midrc_mdai_chestxr
+    - midrc_mRALE_Mastermind_Challenge
+    - SIFT
+    description: The name of the annotation. These names are unique and assigned by MIDRC.
+      Annotation names reference a document posted on the MIDRC website describing the annotation,
+      methods and values expected. All MIDRC created annotations start with "midrc_".
+    required: true
+  - name: manufacturer
+    type: string
+    description: (0008, 0070) Manufacturer
+    required: false
+  - name: manufacturer_model_name
+    type: string
+    description: (0008, 1090) Manufacturer's Model Name
+    required: false
+  - name: modality
+    type: enum
+    enums:
+    - RTSTRUCT
+    - PR
+    - SR
+    - SEG
+    - DOC
+    - OT
+    description: (0008, 0060) Modality
+    required: true
+  - name: series_uid
+    type: string
+    description: (0020, 000e) Series Instance UID; the UID or unique identification code of
+      the imaging series.
+    required: true
+  - name: software_versions
+    type: string
+    description: (0018,1020) Software Versions. This is the software version of the application
+      where the annotation series was created.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - DICOM Annotation Series File
+    description: The category of the annotation file. Must be "DICOM Annotation Series File".
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - DCM
+    description: The file format of the annotation file, e.g., JSON.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - Internal Annotation
+    - External Annotation
+    description: An indication of whether the annotation is expert validated by MIDRC (“Internal
+      Annotation”) or has not be validated by MIDRC experts (“External Annotation”).
+    required: true
+
+- name: radiology_report
+  title: Radiology Report
+  description: A detailed report that describes the results of an imaging test. A radiology
+    report can include narrative information about the type of imaging test that was done,
+    how it was done, and any labels representing the results of the test.
+  category: data_file
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: body_part_examined
+    type: array
+    description: (0018, 0015) Body Part Examined.
+    required: false
+  - name: data_category
+    type: enum
+    enums:
+    - Radiology Report
+    description: Broad categorization of the contents of the data file.
+    required: true
+  - name: data_format
+    type: enum
+    enums:
+    - CSV
+    - DICOM
+    - JSON
+    - PDF
+    - RTF
+    - TSV
+    - TXT
+    - XML
+    description: Format of the data files.
+    required: true
+  - name: data_type
+    type: enum
+    enums:
+    - Radiology Report
+    description: Specific content type of the data file.
+    required: true
+  - name: modality
+    type: string
+    description: (0008, 0060) Modality
+    required: false
+  - name: report_generation_method
+    type: enum
+    enums:
+    - Clinical
+    - Synthetic
+    description: A categorical description of the way the report was generated, either through
+      clinical care (Clinical) or through computational means (Synethic).
+    required: false
+  - name: report_modification_method
+    type: enum
+    enums:
+    - Redacted
+    - Synthetic replacement
+    description: A categorical description of the type of modification performed on the report,
+      either by redaction of sensitive information (Redacted) or by obscuring it through replacement
+      with random or shifted values (Synthetic replacement).
+    required: false
+  - name: study_description
+    type: string
+    description: (0008, 1030) Study Description.
+    required: false
+
+- name: supplementary_file
+  title: Supplementary File
+  description: Supplementary files associated with a study.
+  category: data_file
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with this data.
+    required: false
+  - name: file_description
+    type: string
+    description: Free text to expand upon details for this file
+    required: false
+  - name: data_type
+    type: string
+    description: The type of supplementary file, for example, figures, tables, clinical data,
+      notes, publications, summary statistics, etc.
+    required: true
+  - name: data_category
+    type: string
+    description: The text term describing the broad category that the supplementary file falls
+      into.
+    required: true
+  - name: data_format
+    type: string
+    description: The text term describing the file format of the supplementary file, for example,
+      PDF, XLSX, JPEG, PNG, TSV, etc.
+    required: true
+
+- name: surgical_information
+  title: Surgical Information
+  description: Surgery performed before or after RPT therapy
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: date_of_surgery
+    type: datetime
+    description: Surgery date
+    required: false
+  - name: primary_tumor_removal
+    type: boolean
+    description: Whether the tumor has been removed through surgery
+    required: false
+  - name: time_between_RPT_surgery
+    type: integer
+    description: Time in days between the surgery event and the start of RPT treatment
+    required: false
+  - name: pre_tumor_volume
+    type: number
+    description: Tumor volume pre-surgery, if debulking surgery was performed
+    required: false
+  - name: post_tumor_volume
+    type: number
+    description: Tumor volume post-surgery, if debulking surgery was performed
+    required: false
+  - name: debulking_threshold
+    type: number
+    description: The goal optimal debulking threshold depending on cancer type; typically
+      around 0.7 for NETs
+    required: false
+
+- name: prior_treatment
+  title: Prior Treatment
+  description: General information regarding other treatments including hormone therapy, chemotherapy,
+    somatostatin analog therapy, etc.
+  category: medical_history
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: therapy_type
+    type: enum
+    enums:
+    - hormone_therapy
+    - chemotherapy
+    - immunotherapy
+    - systemic_radiation_therapy
+    - liver_directed_therapy
+    - other
+    description: Type of therapy applied before or alongside RPT
+    required: false
+  - name: start_therapy_date
+    type: datetime
+    description: Start date of therapy
+    required: false
+  - name: end_therapy_date
+    type: datetime
+    description: End date of therapy
+    required: false
+  - name: time_between_RPT_other
+    type: integer
+    description: Time in days between the end of this therapy and the start of RPT therapy
+    required: false
+  - name: pre_tumor_volume
+    type: number
+    description: Tumor volume before start of treatment
+    required: false
+  - name: post_tumor_volume
+    type: number
+    description: Tumor volume after treatment
+    required: false
+  - name: response_to_therapy
+    type: string
+    description: Response to prior therapy, completed or stopped and reasoning
+    required: false
+  - name: response_criteria
+    type: string
+    description: criteria used for response to therapy
+    required: false
+
+- name: lesion
+  title: Lesion
+  description: Tumor information prior to RPT treatment
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: tumor_site
+    type: string
+    description: Primary tumor location
+    required: false
+  - name: AJCC_stage
+    type: string
+    description: Staging of cancer progression through the AJCC system
+    required: false
+  - name: tumor_grade
+    type: string
+    description: Categorization of tumor through level of cell differentiation, determined
+      through analysis of tissue samples
+    required: false
+  - name: extra_abdominal_mets
+    type: boolean
+    description: Whether the tumor has metastasized
+    required: false
+  - name: ki_67
+    type: number
+    description: Ki-67 marker expression, strongly associated with tumor cell proliferation
+      and growth
+    required: false
+
+- name: treatment_course
+  title: Treatment Course
+  description: Description of an overall course of radiopharmaceutical treatments
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: radiopharmaceutical
+    type: string
+    description: Name of the radiopharmaceutical administered, e.g. [177Lu]Lu-DOTATATE
+    required: false
+  - name: therapy_type
+    type: enum
+    enums:
+    - alpha
+    - beta
+    - auger
+    - other
+    description: Type of ionizing radiation delivered by the radiopharmaceutical
+    required: false
+  - name: number_of_cycles
+    type: integer
+    description: the number of cycles
+    required: false
+  - name: start_date
+    description: the start date of treatment
+    type: datetime
+    required: false
+
+- name: therapy_cycle
+  title: Therapy Cycle
+  description: A single cycle of RPT treatment, including radiopharmaceutical administered
+    and activity delivered
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: cycle_number
+    type: integer
+    description: The sequential number of this treatment cycle
+    required: true
+  - name: injected_activity
+    type: number
+    description: Net activity injected during this treatment cycle, in MBq
+    required: false
+  - name: therapeutic_target
+    type: string
+    description: Intended molecular or anatomical therapeutic target, e.g. SSTR2
+    required: false
+  - name: start_date
+    type: datetime 
+    description: Start date of the cycle 
+  - name: end_date 
+    type: datetime
+    description: End date of the cycle 
+
+
+- name: laboratory_panel
+  title: Laboratory Panel
+  description: Laboratory test results linked to a treatment cycle, including renal function
+    and blood work
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: loinc_code
+    type: string
+    description: LOINC code identifying the laboratory test performed
+    required: false
+  - name: lab_value
+    type: number
+    description: Numeric result of the laboratory test
+    required: false
+  - name: lab_unit
+    type: string
+    description: Unit of measurement for the lab result
+    required: false
+  - name: collection_timepoint
+    type: integer
+    description: Days from treatment cycle start at which the sample was collected
+    required: false
+
+- name: dosimetry
+  title: Dosimetry
+  description: Dosimetry for a target organ or lesion within a treatment cycle
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: target
+    type: enum
+    enums:
+    - liver
+    - kidneys
+    - marrow
+    - salivary_glands
+    - lungs
+    - spleen
+    - rest_of_body
+    - lesion
+    description: Anatomical target for which absorbed dose was calculated
+    required: false
+  - name: target_id
+    type: integer
+    description: Lesion ID to track lesion identity and lifecycle across treatment cycles
+    required: false
+  - name: mean
+    type: number
+    description: Mean absorbed dose delivered to the target in Gy
+    required: false
+  - name: SD
+    type: number
+    description: Standard deviation of absorbed dose
+    required: false
+  - name: D50
+    type: number
+    description: Minimum absorbed dose received by the hottest 50% of the volume of the organ
+    required: false
+  - name: D90
+    type: number
+    description: Minimum absorbed dose received by the hottest 90% of the volume of the organ
+    required: false
+  - name: lesion_volume
+    type: number
+    description: Lesion volume in mL, tracked across treatment cycles to monitor response
+    required: false
+  - name: cycle_num
+    type: integer
+    description: Treatment cycle number to which this dose estimate corresponds
+    required: false
+  - name: dosimetry_method
+    type: enum
+    enums:
+    - MIRD
+    - voxel_dosimetry
+    - Monte_Carlo
+    - other
+    description: Computational method used to derive the absorbed dose estimate
+    required: false
+  - name: software_used
+    type: string
+    description: Software used to perform dosimetry calculations, e.g. OLINDA, MIM, Michigan
+      Dosimetry Code
+    required: false
+  - name: time_activity_curve_fit
+    type: string
+    description: Functional form used to fit the time-activity curve, e.g. monoexponential
+    required: false
+
+- name: spect_image_series
+  title: SPECT Image Series
+  description: SPECT imaging files reflecting one acquisition
+  category: imaging
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: injected_activity
+    type: number
+    description: injected activity
+    required: false
+  - name: administration_time
+    type: datetime
+    description: time of injection
+    required: false
+  - name: imaging_time
+    type: datetime
+    description: time of imaging
+    required: false
+  - name: image_acquisition_params
+    type: array
+    description: parameters used for image acquisition
+    required: false
+  - name: image_reconstruction_params
+    type: array
+    description: parameters used for image reconstruction
+    required: false
+  - name: image_units
+    type: string
+    description: Units of the SPECT image voxel values, e.g. counts, counts/s, Bq/mL or MBq;
+      corresponds to DICOM tag (0054,1001) Units where available
+    required: false
+  - name: calibration_factor
+    type: number
+    description: SPECT system sensitivity calibration factor used to convert reconstructed
+      counts to activity for quantitative imaging
+    required: false
+  - name: collimator
+    type: string
+    description: (0018,1180) Collimator/grid Name. Name of the collimator used for the
+      SPECT acquisition
+    required: false 
+
+- name: clinical_outcome
+  title: Clinical Outcome
+  description: Clinical outcome data linked to a treatment cycle and dosimetry results, capturing
+    treatment response and toxicity
+  category: clinical
+  properties:
+  - name: case_ids
+    type: array
+    description: A list of one or more case submitter_ids associated with the data
+    required: true
+  - name: treatment_response
+    type: enum
+    enums:
+    - complete_response
+    - partial_response
+    - stable_disease
+    - progressive_disease
+    - not_evaluable
+    description: Treatment response assessment per RECIST or PERCIST criteria
+    required: false
+  - name: progression_free_survival
+    type: number
+    description: Length of time in months during and after treatment that the patient lives
+      without disease progression
+    required: false
+  - name: overall_survival
+    type: number
+    description: Length of time in months from start of treatment until death from any cause
+    required: false
+  - name: toxicity_grade
+    type: enum
+    enums:
+    - Grade_1
+    - Grade_2
+    - Grade_3
+    - Grade_4
+    - Grade_5
+    description: Toxicity grade per CTCAE criteria
+    required: false
+  - name: toxicity_organ
+    type: enum
+    enums:
+    - kidneys
+    - marrow
+    - liver
+    - salivary_glands
+    - other
+    description: Organ in which toxicity was observed
+    required: false
+  - name: days_to_progression
+    type: integer
+    description: Number of days from treatment start to documented disease progression
+    required: false
+  - name: associated_cycle
+    type: string
+    description: Clinical Outcome and toxicity associated cycle, if any, or end of course description
+
+links:
+- name: datasets
+  parent: dataset
+  child: case
+  backref: cases
+  label: member_of
+  multiplicity: many_to_many
+  required: true
+
+- name: cases
+  parent: case
+  child: condition
+  backref: conditions
+  label: related_to
+  multiplicity: one_to_many
+  required: true
+
+- name: projects
+  parent: project
+  child: core_metadata_collection
+  backref: core_metadata_collections
+  label: data_from
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: cr_series_file
+  backref: cr_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: cr_series_file
+  backref: cr_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: ct_series_file
+  backref: ct_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: ct_series_file
+  backref: ct_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: projects
+  parent: project
+  child: dataset
+  backref: datasets
+  label: performed_for
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: dx_series_file
+  backref: dx_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: dx_series_file
+  backref: dx_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: imaging_study
+  backref: imaging_studies
+  label: related_to
+  multiplicity: one_to_many
+  required: true
+
+- name: conditions
+  parent: condition
+  child: measurement
+  backref: measurements
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: procedures
+  parent: procedure
+  child: measurement
+  backref: measurements
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: measurement
+  backref: measurements
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: medication
+  backref: medications
+  label: related_to
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: mg_series_file
+  backref: mg_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: mg_series_file
+  backref: mg_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: mr_series_file
+  backref: mr_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: mr_series_file
+  backref: mr_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: nm_series_file
+  backref: nm_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: nm_series_file
+  backref: nm_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: observation
+  backref: observations
+  label: related_to
+  multiplicity: one_to_many
+  required: true
+
+- name: conditions
+  parent: condition
+  child: procedure
+  backref: procedures
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: procedure
+  backref: procedures
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: programs
+  parent: program
+  child: project
+  backref: projects
+  label: member_of
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: pt_series_file
+  backref: pt_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: pt_series_file
+  backref: pt_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: rf_series_file
+  backref: rf_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: rf_series_file
+  backref: rf_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: us_series_file
+  backref: us_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: us_series_file
+  backref: us_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: visit
+  backref: visits
+  label: member_of
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: xa_series_file
+  backref: xa_series_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: xa_series_file
+  backref: xa_series_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: datasets
+  parent: dataset
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cr_series_files
+  parent: cr_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: ct_series_files
+  parent: ct_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: dx_series_files
+  parent: dx_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: mg_series_files
+  parent: mg_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: mr_series_files
+  parent: mr_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: nm_series_files
+  parent: nm_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: pt_series_files
+  parent: pt_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: rf_series_files
+  parent: rf_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: us_series_files
+  parent: us_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: xa_series_files
+  parent: xa_series_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: annotation_files
+  parent: annotation_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: dicom_annotation_files
+  parent: dicom_annotation_file
+  child: annotation
+  backref: annotations
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: annotation_file
+  backref: annotation_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: datasets
+  parent: dataset
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cr_series_files
+  parent: cr_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: ct_series_files
+  parent: ct_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: dx_series_files
+  parent: dx_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: mg_series_files
+  parent: mg_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: mr_series_files
+  parent: mr_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: nm_series_files
+  parent: nm_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: pt_series_files
+  parent: pt_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: rf_series_files
+  parent: rf_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: us_series_files
+  parent: us_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: xa_series_files
+  parent: xa_series_file
+  child: annotation_file
+  backref: annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: dicom_annotation_file
+  backref: dicom_annotation_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: dicom_annotation_file
+  backref: dicom_annotation_files
+  label: related_to
+  multiplicity: one_to_many
+  required: true
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: radiology_report
+  backref: radiology_reports
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: datasets
+  parent: dataset
+  child: radiology_report
+  backref: radiology_reports
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: radiology_report
+  backref: radiology_reports
+  label: related_to
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: radiology_report
+  backref: radiology_reports
+  label: related_to
+  multiplicity: many_to_many
+  required: false
+
+- name: core_metadata_collections
+  parent: core_metadata_collection
+  child: supplementary_file
+  backref: supplementary_files
+  label: data_from
+  multiplicity: one_to_many
+  required: false
+
+- name: datasets
+  parent: dataset
+  child: supplementary_file
+  backref: supplementary_files
+  label: refers_to
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: surgical_information
+  backref: surgical_information
+  label: case_has_surgical_information
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: prior_treatment
+  backref: prior_treatments
+  label: case_has_prior_treatment
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: lesion
+  backref: lesions
+  label: case_has_lesion
+  multiplicity: one_to_many
+  required: false
+
+- name: cases
+  parent: case
+  child: treatment_course
+  backref: treatment_courses
+  label: case_has_treatment_course
+  multiplicity: one_to_many
+  required: false
+
+- name: treatment_courses
+  parent: treatment_course
+  child: therapy_cycle
+  backref: therapy_cycles
+  label: treatment_course_has_therapy_cycle
+  multiplicity: one_to_many
+  required: false
+
+- name: therapy_cycles
+  parent: therapy_cycle
+  child: laboratory_panel
+  backref: laboratory_panels
+  label: therapy_cycle_has_laboratory_panel
+  multiplicity: one_to_many
+  required: false
+
+- name: therapy_cycles
+  parent: therapy_cycle
+  child: dosimetry
+  backref: dosimetries
+  label: therapy_cycle_has_dosimetry
+  multiplicity: one_to_many
+  required: false
+
+- name: dosimetries
+  parent: dosimetry
+  child: clinical_outcome
+  backref: clinical_outcomes
+  label: dosimetry_has_clinical_outcome
+  multiplicity: one_to_many
+  required: false
+
+- name: therapy_cycles
+  parent: therapy_cycle
+  child: imaging_study
+  backref: imaging_studies
+  label: therapy_cycle_has_imaging_study
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: dosimetry
+  backref: dosimetries
+  label: imaging_study_has_dosimetry
+  multiplicity: one_to_many
+  required: false
+
+- name: therapy_cycles
+  parent: therapy_cycle
+  child: clinical_outcome
+  backref: clinical_outcomes
+  label: therapy_cycle_has_clinical_outcome
+  multiplicity: one_to_many
+  required: false
+
+- name: imaging_studies
+  parent: imaging_study
+  child: spect_image_series
+  backref: spect_image_series
+  label: imaging_study_has_spect_image_series
+  multiplicity: one_to_many
+  required: false
+
+- name: lesions
+  parent: lesion
+  child: therapy_cycle
+  backref: therapy_cycles
+  label: therapy_cycle_has_lesion
+  multiplicity: many_to_many
+  required: false
+
+- name: lesions
+  parent: lesion
+  child: dosimetry
+  backref: dosimetries
+  label: dosimetry_has_lesion
+  multiplicity: many_to_many
+  required: false
