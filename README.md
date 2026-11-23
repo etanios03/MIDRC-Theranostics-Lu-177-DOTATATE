@@ -5,8 +5,6 @@ Extends the MIDRC Gen3 data model for MIDRC-Theranostics, with Lu-177 DOTATATE a
 The model has **36 tables and 83 links**:
 - **27 MIDRC tables, 5 modified** 
 - **9 new Lu-177 DOTATATE tables**
-- **12 new link connections**
-
 ---
 
 ## 1. Additions to existing MIDRC tables
