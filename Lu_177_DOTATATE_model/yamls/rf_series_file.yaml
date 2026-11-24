@@ -21,6 +21,10 @@ uniqueKeys:
 - - project_id
   - submitter_id
 required:
+- submitter_id
+- md5sum
+- file_size
+- file_name
 - data_category
 - data_format
 - data_type
@@ -44,11 +48,23 @@ links:
     required: true
 properties:
   $ref: _definitions.yaml#/ubiquitous_properties
-  case_ids:
+  submitter_id:
     type: array
     items:
       type: string
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata
+      database. It can be used in place of the UUID for identifying or recalling a
+      record (e.g., in data queries or uploads/exports).
+  md5sum:
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number
+      used as a file's digital fingerprint.
+  file_size:
+    type: integer
+    description: The size of the data file (object) in bytes.
+  file_name:
+    type: string
+    description: The name (or part of a name) of a file (of any type).
   contrast_bolus_agent:
     type: array
     items:

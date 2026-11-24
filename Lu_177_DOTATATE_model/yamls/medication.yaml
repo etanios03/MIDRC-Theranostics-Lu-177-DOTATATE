@@ -36,7 +36,9 @@ properties:
     type: array
     items:
       type: string
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata
+      database. It can be used in place of the UUID for identifying or recalling a
+      record (e.g., in data queries or uploads/exports).
   dose_sequence_number:
     type: integer
     description: The sequence number of a specific dose of a medication given in a

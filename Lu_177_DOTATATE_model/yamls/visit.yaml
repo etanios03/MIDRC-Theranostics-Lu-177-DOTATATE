@@ -31,11 +31,13 @@ links:
   required: true
 properties:
   $ref: _definitions.yaml#/ubiquitous_properties
-  case_ids:
+  submitter_id:
     type: array
     items:
       type: string
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata
+      database. It can be used in place of the UUID for identifying or recalling a
+      record (e.g., in data queries or uploads/exports).
   days_to_hospital_admission:
     type: integer
     description: The number of days between the case's index date and the date of

@@ -9,7 +9,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: age_at_index
     type: number
@@ -160,7 +160,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: condition_code
     type: string
@@ -208,7 +208,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: contributor
     type: string
@@ -304,10 +304,22 @@ nodes:
     one or more computed radiograph (CR) instances belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: contrast_bolus_agent
     type: array
     description: (0018, 0010) Contrast/Bolus Agent.
@@ -422,9 +434,21 @@ nodes:
     therapy (RPT) acquisition metadata: ct imaging files reflecting one acquisition.'
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
     required: true
   - name: acquisition_type
     type: enum
@@ -643,10 +667,22 @@ nodes:
     one or more digital radiograph (x-rays) instances belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: contrast_bolus_agent
     type: array
     description: (0018, 0010) Contrast/Bolus Agent.
@@ -763,7 +799,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: true
   - name: age_at_imaging
     type: number
@@ -918,7 +954,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: test_days_from_index
     type: integer
@@ -957,7 +993,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: dose_sequence_number
     type: integer
@@ -1014,10 +1050,22 @@ nodes:
     mammography images belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: code_meaning
     type: array
     description: (0008,0104) Code Meaning. Note that code_meaning is pulled from the View
@@ -1156,10 +1204,22 @@ nodes:
     one or more MR (magnetic resonance) images belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: contrast_bolus_agent
     type: array
     description: (0018, 0010) Contrast/Bolus Agent.
@@ -1325,13 +1385,24 @@ nodes:
 - name: nm_series_file
   title: NM Series File
   description: 'Information related to a NM imaging series to which one or more nuclear medicine
-    images belong. Also carries the radiopharmaceutical therapy (RPT) acquisition metadata:
-    planar nm imaging files reflecting one acquisition.'
+    images belong, including SPECT'
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
     required: true
   - name: body_part_examined
     type: array
@@ -1414,6 +1485,14 @@ nodes:
     - NIfTI
     description: Specific content type of the data file.
     required: true
+  - name: acquisition_kind
+    type: enum
+    enums:
+    - SPECT
+    - planar
+    - other
+    description: Modality description, either planar acquisition or SPECT
+    required: false
   - name: injected_activity
     type: number
     description: injected activity
@@ -1443,7 +1522,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: observation_name
     type: string
@@ -1468,7 +1547,7 @@ nodes:
   properties:
   - name: case_ids
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: breathing_support_type
     type: string
@@ -1633,9 +1712,21 @@ nodes:
     metadata: pet imaging files reflecting one acquisition.'
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
     required: true
   - name: body_part_examined
     type: array
@@ -1767,10 +1858,22 @@ nodes:
     image belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: contrast_bolus_agent
     type: array
     description: (0018, 0010) Contrast/Bolus Agent.
@@ -1884,10 +1987,22 @@ nodes:
     image belong.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: image_data_modification_name
     type: integer
     description: A MIDRC classification describing specific methods (e.g., software tools,
@@ -1999,9 +2114,9 @@ nodes:
   description: Information about a specific visit for a specific case or patient.
   category: administrative
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: days_to_hospital_admission
     type: integer
@@ -2033,10 +2148,22 @@ nodes:
   description: Information related to a DR imaging series.
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
-    required: false
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
+    required: true
+  - name: md5sum
+    type: string
+    description: The 128-bit hash value expressed as a 32 digit hexadecimal number used as a file's digital fingerprint.
+    required: true
+  - name: file_size
+    type: integer
+    description: The size of the data file (object) in bytes.
+    required: true
+  - name: file_name
+    type: string
+    description: The name (or part of a name) of a file (of any type).
+    required: true
   - name: body_part_examined
     type: array
     description: (0018, 0015) Body Part Examined.
@@ -2167,9 +2294,9 @@ nodes:
     batch of annotations.
   category: notation
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: airspace_disease_grading
     type: enum
@@ -2272,9 +2399,9 @@ nodes:
     information to a case, imaging study or imaging series.
   category: data_file
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: annotation_long_name
     type: string
@@ -2361,9 +2488,9 @@ nodes:
     file containing annotation information to an imaging study.
   category: data_file
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: true
   - name: annotation_method
     type: enum
@@ -2462,9 +2589,9 @@ nodes:
     how it was done, and any labels representing the results of the test.
   category: data_file
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: body_part_examined
     type: array
@@ -2526,9 +2653,9 @@ nodes:
   description: Supplementary files associated with a study.
   category: data_file
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata database. It can be used in place of the UUID for identifying or recalling a record (e.g., in data queries or uploads/exports).
     required: false
   - name: file_description
     type: string
@@ -2555,7 +2682,7 @@ nodes:
   description: Surgery performed before or after RPT therapy
   category: medical_history
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2591,7 +2718,7 @@ nodes:
     somatostatin analog therapy, etc.
   category: medical_history
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2640,7 +2767,7 @@ nodes:
   description: Tumor information prior to RPT treatment
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2672,7 +2799,7 @@ nodes:
   description: Description of an overall course of radiopharmaceutical treatments
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2704,7 +2831,7 @@ nodes:
     and activity delivered
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2734,7 +2861,7 @@ nodes:
     and blood work
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2760,7 +2887,7 @@ nodes:
   description: Dosimetry for a target organ or lesion within a treatment cycle
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2829,7 +2956,7 @@ nodes:
   description: SPECT imaging files reflecting one acquisition
   category: imaging
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2875,7 +3002,7 @@ nodes:
     treatment response and toxicity
   category: clinical
   properties:
-  - name: case_ids
+  - name: submitter_id
     type: array
     description: A list of one or more case submitter_ids associated with the data
     required: true
@@ -2941,7 +3068,7 @@ links:
   backref: conditions
   label: related_to
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: projects
   parent: project
@@ -3013,7 +3140,7 @@ links:
   backref: imaging_studies
   label: related_to
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: conditions
   parent: condition
@@ -3045,7 +3172,7 @@ links:
   backref: medications
   label: related_to
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: core_metadata_collections
   parent: core_metadata_collection
@@ -3101,7 +3228,7 @@ links:
   backref: observations
   label: related_to
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: conditions
   parent: condition
@@ -3181,7 +3308,7 @@ links:
   backref: visits
   label: member_of
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: core_metadata_collections
   parent: core_metadata_collection
@@ -3445,7 +3572,7 @@ links:
   backref: dicom_annotation_files
   label: related_to
   multiplicity: one_to_many
-  required: true
+  required: false
 
 - name: core_metadata_collections
   parent: core_metadata_collection

@@ -21,7 +21,7 @@ uniqueKeys:
 - - project_id
   - submitter_id
 required:
-- case_ids
+- submitter_id
 - series_description
 - annotation_name
 - modality
@@ -55,11 +55,13 @@ links:
     required: false
 properties:
   $ref: _definitions.yaml#/data_file_properties
-  case_ids:
+  submitter_id:
     type: array
     items:
       type: string
-    description: A list of one or more case submitter_ids associated with this data.
+    description: A human-readable, unique identifier for a record in the metadata
+      database. It can be used in place of the UUID for identifying or recalling a
+      record (e.g., in data queries or uploads/exports).
   annotation_method:
     description: Defines the method by which the annotation was created. Clinically_derived
       - Based on information produced in the process of the subject's medical care;
