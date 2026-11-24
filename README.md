@@ -1,12 +1,10 @@
 # MIDRC-Theranostics-Lu-177-DOTATATE
 
-`Extends the MIDRC Gen3 data model for MIDRC-Theranostics, with [177Lu]Lu-DOTATATE as an example use case
+Extends the MIDRC Gen3 data model for MIDRC-Theranostics, with Lu-177 DOTATATE as an example use case
 
 The model has **36 tables and 83 links**:
-- **27 MIDRC tables:** 
+- **27 MIDRC tables, 5 modified** 
 - **9 new Lu-177 DOTATATE tables**
-- **12 new link connections**
-
 ---
 
 ## 1. Additions to existing MIDRC tables
@@ -14,7 +12,6 @@ The model has **36 tables and 83 links**:
 | MIDRC table | Added property | Type | Description |
 |---|---|---|---|
 | `case` | `case_id` | string (required) | A de-identified identifier for the subject |
-| `condition` | `performance_status_ECOG` | enum: `0`–`5` | ECOG performance status score describing the patient's level of functioning (moved here from the removed `medical_history` table) |
 | `imaging_study` | `loinc_modality` | string | The LOINC method or imaging modality associated with the assigned LOINC code |
 | `imaging_study` | `modality` | enum: `PET`, `CT`, `SPECT`, `MRI` | Modality of the imaging study, from DICOM tag (0008,0060) |
 | `imaging_study` | `SUV_max` | number | Highest tracer concentration in a region of tissue |
@@ -55,7 +52,7 @@ The model has **36 tables and 83 links**:
 All new links are `one_to_many` and optional 
 
 | Parent | → | Child | Link name |
-|---|---|---|---|---|---|
+|---|---|---|---|
 | `case` | → | `surgical_information` | `cases` |
 | `case` | → | `prior_treatment` | `cases` | 
 | `case` | → | `lesion` | `cases` | 
@@ -94,11 +91,11 @@ case
 
 ## 4. Visualization
 
-https://github.com/AustralianBioCommons/gen3schemadev
+[Gen3schemadev package](https://github.com/AustralianBioCommons/gen3schemadev)
 
-gen3schemadev visualise -i lu_177_dotatate_midrc_bundled.json
+`gen3schemadev visualise -i lu_177_dotatate_midrc_bundled.json`
 
 
 ## 5. Local Gen3 Instance Implementation 
 
-gen3_instance_setup/gen3_setup_wsl.sh
+`gen3_instance_setup/gen3_setup_wsl.sh`
